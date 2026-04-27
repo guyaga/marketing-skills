@@ -5,7 +5,15 @@ import { categories } from "../../data/categories";
 import { skillsMeta } from "../../data/skills-meta";
 ---
 
-<BrandLayout title="All skills">
+<BrandLayout
+  title="All skills"
+  description="Browse all 48 marketing skills across 10 categories. Filter by category or search by name. Each skill is a structured prompt your AI agent runs end-to-end."
+  schemaType="skillsList"
+  breadcrumbs={[
+    { name: "Home", url: "https://marketing-skills.guyaga.ai/" },
+    { name: "All skills", url: "https://marketing-skills.guyaga.ai/skills/" },
+  ]}
+>
   <section class="bg-[var(--color-bg-base)]">
     <div class="max-w-[1400px] mx-auto px-6 md:px-10 pt-20 pb-12">
       <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-3">

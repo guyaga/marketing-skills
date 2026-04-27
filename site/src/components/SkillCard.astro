@@ -33,7 +33,10 @@ const persona = personaByCategory.get(skill.category);
   <div class="mt-auto pt-5 flex items-center justify-between border-t border-[var(--color-rule)] mt-5">
     {persona ? (
       <div class="flex items-center gap-2">
-        <img src={`/avatars/${persona.avatarSlug}.png`} alt={persona.name} loading="lazy" decoding="async" class="w-6 h-6 object-cover bg-[var(--color-bg-elev-2)] border border-[var(--color-rule)]" onerror="this.style.opacity='0.2'" />
+        <picture>
+          <source type="image/webp" srcset={`/avatars/${persona.avatarSlug}-96.webp`} />
+          <img src={`/avatars/${persona.avatarSlug}.png`} alt={persona.name} width="24" height="24" loading="lazy" decoding="async" class="w-6 h-6 object-cover bg-[var(--color-bg-elev-2)] border border-[var(--color-rule)]" onerror="this.style.opacity='0.2'" />
+        </picture>
         <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--color-ink-tertiary)]">{persona.name}</span>
       </div>
     ) : (

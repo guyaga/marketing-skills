@@ -16,7 +16,17 @@ const skills = skillsByCategory(slug);
 const persona = personaByCategory.get(slug);
 ---
 
-<BrandLayout title={cat.name} description={cat.description}>
+<BrandLayout
+  title={cat.name}
+  description={`${cat.description} ${skills.length} marketing skills for AI agents in this practice.`}
+  schemaType="category"
+  categorySlug={slug}
+  breadcrumbs={[
+    { name: "Home", url: "https://marketing-skills.guyaga.ai/" },
+    { name: "Categories", url: "https://marketing-skills.guyaga.ai/skills/" },
+    { name: cat.name, url: `https://marketing-skills.guyaga.ai/categories/${slug}/` },
+  ]}
+>
   <section class="bg-[var(--color-bg-base)]">
     <header class="border-b border-[var(--color-rule)] bg-[var(--color-bg-deeper)]">
       <div class="max-w-[1280px] mx-auto px-6 md:px-10 pt-20 pb-14">

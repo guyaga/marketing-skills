@@ -12,7 +12,10 @@ const skillsPerCategory = (slug: string) =>
   skillsMeta.filter((s) => s.category === slug).length;
 ---
 
-<BrandLayout title="Marketing Skills">
+<BrandLayout
+  title="Marketing Skills"
+  schemaType="homepage"
+>
   <!-- HERO -->
   <section class="bg-grid-dark text-[var(--color-ink-primary)]">
     <div class="max-w-[1400px] mx-auto px-6 md:px-10 pt-24 pb-32 grid lg:grid-cols-12 gap-12 items-end">

@@ -1,0 +1,219 @@
+---
+// Emits JSON-LD structured data for SEO + AI search citation.
+// Pass type-specific props; component renders the right schema.
+
+import { personas } from "../data/personas";
+import { categoryBySlug } from "../data/categories";
+import { skillsByCategory } from "../data/skills-meta";
+
+type Breadcrumb = { name: string; url: string };
+
+interface Props {
+  type: "homepage" | "team" | "skill" | "category" | "install" | "skillsList";
+  url: string;
+  title: string;
+  description: string;
+  ogImage?: string;
+  breadcrumbs?: Breadcrumb[];
+  // skill-specific
+  skillName?: string;
+  skillCategory?: string;
+  skillSlug?: string;
+  // category-specific
+  categorySlug?: string;
+}
+
+const {
+  type,
+  url,
+  title,
+  description,
+  ogImage,
+  breadcrumbs,
+  skillName,
+  skillCategory,
+  skillSlug,
+  categorySlug,
+} = Astro.props;
+
+const SITE_URL = "https://marketing-skills.guyaga.ai";
+const ORG_NAME = "Marketing Skills by Guy Aga";
+const AUTHOR_NAME = "Guy Aga";
+const AUTHOR_URL = "https://guyaga.ai";
+
+// Common Organization
+const organization = {
+  "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
+  name: ORG_NAME,
+  url: SITE_URL,
+  founder: {
+    "@type": "Person",
+    name: AUTHOR_NAME,
+    url: AUTHOR_URL,
+    sameAs: ["https://bestguy.ai"],
+  },
+  sameAs: [
+    "https://github.com/guyaga/marketing-skills",
+    AUTHOR_URL,
+    "https://bestguy.ai",
+  ],
+};
+
+// Common WebSite
+const website = {
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  url: SITE_URL,
+  name: ORG_NAME,
+  description:
+    "48 marketing skills for AI agents. Ten specialists, one install. CRO, copy, SEO, paid, retention, growth.",
+  publisher: { "@id": `${SITE_URL}/#organization` },
+  inLanguage: "en-US",
+};
+
+// Build the @graph
+const graph: any[] = [organization, website];
+
+// Breadcrumb (if present)
+if (breadcrumbs && breadcrumbs.length > 0) {
+  graph.push({
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: b.name,
+      item: b.url,
+    })),
+  });
+}
+
+// Per-type schema
+if (type === "homepage") {
+  graph.push({
+    "@type": "WebPage",
+    "@id": url,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#organization` },
+    primaryImageOfPage: ogImage,
+  });
+}
+
+if (type === "team") {
+  // Person schema for each team member, embedded in CollectionPage
+  graph.push({
+    "@type": "CollectionPage",
+    "@id": url,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: personas.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Person",
+          name: p.name,
+          jobTitle: p.role,
+          description: p.oneLiner,
+          image: `${SITE_URL}/avatars/${p.avatarSlug}.png`,
+          worksFor: { "@id": `${SITE_URL}/#organization` },
+        },
+      })),
+    },
+  });
+}
+
+if (type === "skill" && skillName && skillCategory && skillSlug) {
+  const cat = categoryBySlug.get(skillCategory);
+  graph.push({
+    "@type": "TechArticle",
+    "@id": url,
+    url,
+    headline: skillName,
+    name: skillName,
+    description,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    inLanguage: "en-US",
+    author: {
+      "@type": "Person",
+      name: AUTHOR_NAME,
+      url: AUTHOR_URL,
+    },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    articleSection: cat?.name,
+    keywords: ["marketing", "AI agent skill", skillName, cat?.name].filter(
+      Boolean
+    ),
+    datePublished: "2026-04-01",
+    dateModified: new Date().toISOString().slice(0, 10),
+  });
+}
+
+if (type === "category" && categorySlug) {
+  const cat = categoryBySlug.get(categorySlug);
+  const skills = skillsByCategory(categorySlug);
+  graph.push({
+    "@type": "CollectionPage",
+    "@id": url,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: skills.length,
+      itemListElement: skills.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${SITE_URL}/skills/${s.slug}/`,
+        name: s.name,
+      })),
+    },
+  });
+}
+
+if (type === "install") {
+  graph.push({
+    "@type": "HowTo",
+    "@id": url,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    step: [
+      { "@type": "HowToStep", name: "Install via npx skills add", text: "Run npx skills add guyaga/marketing-skills in your project root." },
+      { "@type": "HowToStep", name: "Run product-marketing-context", text: "Have your AI agent run the product-marketing-context skill first to set up brand context." },
+      { "@type": "HowToStep", name: "Use any skill", text: "Ask the agent to perform marketing tasks; it will load the relevant skill from the installed library." },
+    ],
+  });
+}
+
+if (type === "skillsList") {
+  // Use SoftwareApplication / CollectionPage hybrid
+  graph.push({
+    "@type": "CollectionPage",
+    "@id": url,
+    url,
+    name: title,
+    description,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+  });
+}
+
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": graph,
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(ld)}
+/>

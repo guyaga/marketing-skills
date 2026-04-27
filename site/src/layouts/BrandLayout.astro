@@ -2,21 +2,52 @@
 import "../styles/brand.css";
 import BrandHeader from "../components/BrandHeader.astro";
 import BrandFooter from "../components/BrandFooter.astro";
+import StructuredData from "../components/StructuredData.astro";
+
+type Breadcrumb = { name: string; url: string };
 
 interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  schemaType?:
+    | "homepage"
+    | "team"
+    | "skill"
+    | "category"
+    | "install"
+    | "skillsList";
+  breadcrumbs?: Breadcrumb[];
+  skillName?: string;
+  skillCategory?: string;
+  skillSlug?: string;
+  categorySlug?: string;
 }
 
-const { title, description, ogImage } = Astro.props;
+const {
+  title,
+  description,
+  ogImage,
+  schemaType = "homepage",
+  breadcrumbs,
+  skillName,
+  skillCategory,
+  skillSlug,
+  categorySlug,
+} = Astro.props;
+
 const fullTitle = title === "Marketing Skills"
-  ? "Marketing Skills for AI Agents — Guy Aga"
-  : `${title} — Marketing Skills`;
+  ? "Marketing Skills for AI Agents — 48 skills, 10 specialists | Guy Aga"
+  : `${title} — Marketing Skills | Guy Aga`;
+
 const desc =
   description ??
-  "48 marketing skills for AI agents. Ten specialists, one install. CRO, copy, SEO, paid, retention, growth — all in your editor.";
+  "48 marketing skills for AI agents. Ten specialists, one install. CRO, copy, SEO, paid, retention, growth — all in your editor (Claude Code, Cursor, Codex).";
+
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageUrl = ogImage
+  ? new URL(ogImage, Astro.site).toString()
+  : new URL("/og-default.png", Astro.site).toString();
 ---
 
 <!doctype html>
@@ -25,31 +56,72 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0e0e10" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Title + canonical -->
     <title>{fullTitle}</title>
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+
+    <!-- Open Graph -->
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:site_name" content="Marketing Skills by Guy Aga" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Marketing Skills for AI Agents — 48 skills, 10 specialists, one install" />
 
-    <!-- Editorial type stack: Fraunces (display) + Hanken Grotesk (body) + JetBrains Mono -->
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate icon" href="/favicon.ico" />
+
+    <!-- Font preconnect + preload (LCP optimization) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap"
     />
 
-    <!-- Astro view transitions for smooth page changes -->
+    <!-- View transitions -->
     <meta name="view-transition" content="same-origin" />
+
+    <!-- Structured data -->
+    <StructuredData
+      type={schemaType}
+      url={canonical}
+      title={fullTitle}
+      description={desc}
+      ogImage={ogImageUrl}
+      breadcrumbs={breadcrumbs}
+      skillName={skillName}
+      skillCategory={skillCategory}
+      skillSlug={skillSlug}
+      categorySlug={categorySlug}
+    />
   </head>
   <body class="min-h-[100dvh] flex flex-col bg-[var(--color-bg-base)] text-[var(--color-ink-primary)] antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-[var(--color-brand-red)] focus:text-[var(--color-ink-primary)] focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-[0.22em]">
+      Skip to content
+    </a>
     <BrandHeader />
-    <main class="flex-1">
+    <main id="main" class="flex-1">
       <slot />
     </main>
     <BrandFooter />

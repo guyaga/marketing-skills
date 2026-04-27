@@ -32,7 +32,20 @@ const relatedSkills = skillsMeta
   .slice(0, 6);
 ---
 
-<BrandLayout title={meta.name} description={meta.description}>
+<BrandLayout
+  title={meta.name}
+  description={`${meta.description} A marketing skill for AI agents in the ${cat.name} practice.`}
+  schemaType="skill"
+  skillName={meta.name}
+  skillCategory={meta.category}
+  skillSlug={meta.slug}
+  breadcrumbs={[
+    { name: "Home", url: "https://marketing-skills.guyaga.ai/" },
+    { name: "Skills", url: "https://marketing-skills.guyaga.ai/skills/" },
+    { name: cat.name, url: `https://marketing-skills.guyaga.ai/categories/${cat.slug}/` },
+    { name: meta.name, url: `https://marketing-skills.guyaga.ai/skills/${meta.slug}/` },
+  ]}
+>
   <article class="bg-[var(--color-bg-base)]">
     <header class="border-b border-[var(--color-rule)] bg-[var(--color-bg-deeper)]">
       <div class="max-w-[1280px] mx-auto px-6 md:px-10 pt-14 pb-12">
