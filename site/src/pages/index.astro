@@ -1,10 +1,13 @@
 ---
 import BrandLayout from "../layouts/BrandLayout.astro";
 import InstallSnippet from "../components/InstallSnippet.astro";
+import PersonaAvatar from "../components/PersonaAvatar.astro";
 import { categories } from "../data/categories";
 import { skillsMeta } from "../data/skills-meta";
+import { personas } from "../data/personas";
 
 const totalSkills = skillsMeta.length;
+const totalSpecialists = personas.length;
 const skillsPerCategory = (slug: string) =>
   skillsMeta.filter((s) => s.category === slug).length;
 ---
@@ -18,11 +21,11 @@ const skillsPerCategory = (slug: string) =>
           Marketing skills · v0.1
         </div>
         <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
-          {totalSkills} marketing skills<br />
-          your AI agent can run today.
+          Your AI marketing team.<br />
+          {totalSpecialists} specialists. One install.
         </h1>
         <p class="mt-8 text-lg text-[var(--color-brand-beige)] max-w-2xl leading-relaxed">
-          CRO, copywriting, SEO, paid ads, retention, growth engineering. One install command and all {totalSkills} land in Claude Code, Cursor, and Codex. Then your agent runs them like a marketer would.
+          {totalSkills} skills, organized by role. The Conversion Specialist owns CRO. The Strategist owns positioning. The Media Buyer owns paid. You ask the question, the right specialist steps in. One command drops the whole team into Claude Code, Cursor, and Codex.
         </p>
         <div class="mt-10 max-w-xl">
           <InstallSnippet
@@ -59,6 +62,35 @@ const skillsPerCategory = (slug: string) =>
             </li>
           ))}
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM ROSTER STRIP -->
+  <section class="bg-[var(--color-brand-paper)] border-b border-[var(--color-brand-rule)]">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="flex items-baseline justify-between mb-10 border-b border-[var(--color-brand-rule)] pb-4">
+        <div>
+          <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-2">Meet the team</div>
+          <h2 class="font-display text-3xl md:text-4xl">Ten specialists, named and ready.</h2>
+        </div>
+        <a href="/team/" class="font-mono text-[10px] tracking-[0.2em] uppercase hover:text-[var(--color-brand-red)] transition-colors">
+          Read the full roster →
+        </a>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+        {personas.map((p) => (
+          <a
+            href={`/categories/${p.category}/`}
+            class="group block text-center"
+          >
+            <div class="mx-auto w-24 h-24 mb-3">
+              <PersonaAvatar persona={p} size="lg" link={false} />
+            </div>
+            <div class="font-display text-base text-[var(--color-brand-black)] group-hover:text-[var(--color-brand-red)] transition-colors">{p.name}</div>
+            <div class="font-mono text-[9px] tracking-[0.15em] uppercase text-[var(--color-brand-muted)] mt-1">{p.role}</div>
+          </a>
+        ))}
       </div>
     </div>
   </section>

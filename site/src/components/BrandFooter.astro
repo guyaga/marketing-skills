@@ -33,12 +33,17 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="border-t border-[var(--color-brand-grid)]">
-    <div class="max-w-6xl mx-auto px-6 py-6 text-xs text-[var(--color-brand-muted)] flex flex-col md:flex-row justify-between gap-3">
-      <span>© {year} Guy Aga. MIT licensed.</span>
-      <span>
-        Adapted with attribution from
-        <a href="https://github.com/coreyhaines31/marketingskills" rel="noopener" class="underline hover:text-[var(--color-brand-paper)]">Corey Haines' marketing-skills</a>.
-      </span>
+    <div class="max-w-6xl mx-auto px-6 py-6 text-xs text-[var(--color-brand-muted)] space-y-2">
+      <p class="leading-relaxed">
+        Honest disclosure on sources: skills synthesize public marketing literature and are organized by Guy Aga in his voice. Specific benchmarks cite their primary source where possible (Lavender, Instantly, Baymard, Andrew Chen, Reforge public posts, Google Search Central, etc). Numbers should be re-verified before any external citation.
+      </p>
+      <div class="flex flex-col md:flex-row justify-between gap-3 pt-2">
+        <span>© {year} Guy Aga. MIT licensed.</span>
+        <span>
+          Adapted with attribution from
+          <a href="https://github.com/coreyhaines31/marketingskills" rel="noopener" class="underline hover:text-[var(--color-brand-paper)]">Corey Haines' marketing-skills</a>.
+        </span>
+      </div>
     </div>
   </div>
 </footer>

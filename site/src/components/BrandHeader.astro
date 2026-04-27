@@ -12,6 +12,10 @@ const isActive = (prefix: string) =>
     </a>
     <nav class="flex items-center gap-7 text-sm">
       <a
+        href="/team/"
+        class={`hover:text-[var(--color-brand-red)] transition-colors ${isActive("/team") ? "text-[var(--color-brand-red)]" : "text-[var(--color-brand-black)]"}`}
+      >Team</a>
+      <a
         href="/skills/"
         class={`hover:text-[var(--color-brand-red)] transition-colors ${isActive("/skills") ? "text-[var(--color-brand-red)]" : "text-[var(--color-brand-black)]"}`}
       >Skills</a>

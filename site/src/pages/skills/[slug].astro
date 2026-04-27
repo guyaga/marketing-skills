@@ -3,8 +3,10 @@ import { getCollection, render } from "astro:content";
 import BrandLayout from "../../layouts/BrandLayout.astro";
 import InstallSnippet from "../../components/InstallSnippet.astro";
 import CategoryBadge from "../../components/CategoryBadge.astro";
+import PersonaAvatar from "../../components/PersonaAvatar.astro";
 import { skillsMeta, skillBySlug } from "../../data/skills-meta";
 import { categoryBySlug } from "../../data/categories";
+import { personaByCategory } from "../../data/personas";
 
 export async function getStaticPaths() {
   const entries = await getCollection("skills");
@@ -20,6 +22,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const meta = skillBySlug.get(entry.id)!;
 const cat = categoryBySlug.get(meta.category)!;
+const persona = personaByCategory.get(meta.category);
 const { Content } = await render(entry);
 
 const upstreamUrl = `https://github.com/guyaga/marketing-skills/blob/main/skills/${meta.slug}/SKILL.md`;
@@ -56,6 +59,22 @@ const relatedSkills = skillsMeta
       </div>
 
       <aside class="lg:col-span-4 lg:sticky lg:top-6 lg:self-start space-y-8">
+        {persona && (
+          <a
+            href={`/categories/${persona.category}/`}
+            class="flex items-center gap-3 p-3 border border-[var(--color-brand-rule)] hover:border-[var(--color-brand-black)] transition-colors group"
+          >
+            <PersonaAvatar persona={persona} size="md" link={false} />
+            <div class="flex-1 min-w-0">
+              <div class="font-mono text-[9px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)]">Owned by</div>
+              <div class="font-display text-base text-[var(--color-brand-black)] group-hover:text-[var(--color-brand-red)] transition-colors leading-tight">
+                {persona.name}
+              </div>
+              <div class="font-mono text-[10px] tracking-wider uppercase text-[var(--color-brand-muted)] mt-0.5">{persona.role}</div>
+            </div>
+          </a>
+        )}
+
         <div>
           <InstallSnippet
             label={`Install all ${skillsMeta.length} skills`}

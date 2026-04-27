@@ -1,0 +1,79 @@
+---
+import BrandLayout from "../layouts/BrandLayout.astro";
+import PersonaCard from "../components/PersonaCard.astro";
+import InstallSnippet from "../components/InstallSnippet.astro";
+import { personas } from "../data/personas";
+import { story } from "../data/story";
+import { skillsMeta } from "../data/skills-meta";
+---
+
+<BrandLayout
+  title="The Team"
+  description="The ten specialists in your AI marketing team — Brand Lead, Conversion Specialist, Copy Chief, SEO Lead, Media Buyer, Strategist, Customer Success Lead, Growth Engineer, Operator, Analyst."
+>
+  <!-- HERO -->
+  <section class="bg-grid-dark text-[var(--color-brand-paper)]">
+    <div class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+      <div class="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--color-brand-red)] mb-6">
+        Ten specialists · {skillsMeta.length} skills
+      </div>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05] max-w-4xl">
+        {story.hookHeadline}
+      </h1>
+      <p class="mt-8 text-lg text-[var(--color-brand-beige)] max-w-3xl leading-relaxed">
+        {story.hookSub}
+      </p>
+    </div>
+  </section>
+
+  <!-- ORIGIN STORY -->
+  <section class="bg-[var(--color-brand-beige)]">
+    <div class="max-w-4xl mx-auto px-6 py-20">
+      <h2 class="font-display text-3xl md:text-4xl mb-8">{story.origin.title}</h2>
+      <div class="space-y-5 text-[17px] leading-relaxed text-[var(--color-brand-black)]/85">
+        {story.origin.body.map((para) => <p>{para}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM ROSTER -->
+  <section class="bg-[var(--color-brand-paper)]">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="border-b border-[var(--color-brand-rule)] pb-4 mb-12">
+        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-2">The roster</div>
+        <h2 class="font-display text-3xl md:text-4xl">Ten specialists, one team.</h2>
+      </div>
+      <div class="space-y-12">
+        {personas.map((p) => <PersonaCard persona={p} variant="full" />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="bg-grid-dark text-[var(--color-brand-paper)]">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-2">How the team works</div>
+      <h2 class="font-display text-3xl md:text-4xl mb-12 max-w-3xl">Four principles the team operates by.</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        {story.philosophyPoints.map((pt, i) => (
+          <div class="border-t border-[var(--color-brand-grid)] pt-6">
+            <div class="font-mono text-3xl text-[var(--color-brand-red)] mb-3">{String(i + 1).padStart(2, "0")}</div>
+            <h3 class="font-display text-2xl mb-3">{pt.title}</h3>
+            <p class="text-[15px] leading-relaxed text-[var(--color-brand-beige)]">{pt.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-[var(--color-brand-paper)]">
+    <div class="max-w-3xl mx-auto px-6 py-20 text-center">
+      <h2 class="font-display text-4xl md:text-5xl mb-6">{story.installPromise.headline}</h2>
+      <p class="text-lg text-[var(--color-brand-black)]/75 mb-8">{story.installPromise.body}</p>
+      <div class="max-w-xl mx-auto">
+        <InstallSnippet command="npx skills add guyaga/marketing-skills" />
+      </div>
+    </div>
+  </section>
+</BrandLayout>

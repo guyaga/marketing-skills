@@ -1,0 +1,35 @@
+---
+import type { Persona } from "../data/personas";
+
+interface Props {
+  persona: Persona;
+  size?: "sm" | "md" | "lg" | "xl";
+  link?: boolean;
+}
+
+const { persona, size = "md", link = true } = Astro.props;
+
+const sizeMap = {
+  sm: "w-12 h-12",
+  md: "w-20 h-20",
+  lg: "w-32 h-32",
+  xl: "w-48 h-48",
+};
+const sizeCls = sizeMap[size];
+
+const Tag = link ? "a" : "div";
+const tagProps = link ? { href: `/categories/${persona.category}/` } : {};
+---
+
+<Tag {...tagProps} class="persona-avatar inline-block group">
+  <div class={`${sizeCls} relative bg-[var(--color-brand-beige)] border border-[var(--color-brand-rule)] overflow-hidden`}>
+    <img
+      src={`/avatars/${persona.avatarSlug}.png`}
+      alt={`${persona.name}, ${persona.role}`}
+      loading="lazy"
+      decoding="async"
+      class="w-full h-full object-cover grayscale-[0.05] group-hover:grayscale-0 transition-all duration-300"
+      onerror="this.style.opacity='0.15';this.style.filter='blur(0.5px)'"
+    />
+  </div>
+</Tag>

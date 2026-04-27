@@ -1,8 +1,10 @@
 ---
 import BrandLayout from "../../layouts/BrandLayout.astro";
 import SkillCard from "../../components/SkillCard.astro";
+import PersonaCard from "../../components/PersonaCard.astro";
 import { categories, categoryBySlug } from "../../data/categories";
 import { skillsByCategory } from "../../data/skills-meta";
+import { personaByCategory } from "../../data/personas";
 
 export async function getStaticPaths() {
   return categories.map((c) => ({ params: { slug: c.slug }, props: { slug: c.slug } }));
@@ -11,6 +13,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.props;
 const cat = categoryBySlug.get(slug)!;
 const skills = skillsByCategory(slug);
+const persona = personaByCategory.get(slug);
 ---
 
 <BrandLayout title={cat.name} description={cat.description}>
@@ -31,7 +34,15 @@ const skills = skillsByCategory(slug);
       </div>
     </header>
 
+    {persona && (
+      <div class="max-w-6xl mx-auto px-6 py-12 border-b border-[var(--color-brand-rule)]">
+        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-6">Who owns this</div>
+        <PersonaCard persona={persona} variant="full" />
+      </div>
+    )}
+
     <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-6">The {skills.length} skills in this practice</div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {skills.map((s) => <SkillCard skill={s} />)}
       </div>
