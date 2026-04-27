@@ -37,7 +37,7 @@ const {
 } = Astro.props;
 
 const SITE_URL = "https://marketing-skills.guyaga.ai";
-const ORG_NAME = "Marketing Skills by Guy Aga";
+const ORG_NAME = "Brief by Guy Aga";
 const AUTHOR_NAME = "Guy Aga";
 const AUTHOR_URL = "https://guyaga.ai";
 
@@ -54,7 +54,7 @@ const organization = {
     sameAs: ["https://bestguy.ai"],
   },
   sameAs: [
-    "https://github.com/guyaga/marketing-skills",
+    "https://github.com/guyaga/brief",
     AUTHOR_URL,
     "https://bestguy.ai",
   ],
@@ -67,7 +67,7 @@ const website = {
   url: SITE_URL,
   name: ORG_NAME,
   description:
-    "48 marketing skills for AI agents. Ten specialists, one install. CRO, copy, SEO, paid, retention, growth.",
+    "Brief us. We ship the work. Ten marketing specialists installed in your editor. CRO, copy, SEO, paid, retention, growth.",
   publisher: { "@id": `${SITE_URL}/#organization` },
   inLanguage: "en-US",
 };
@@ -187,7 +187,7 @@ if (type === "install") {
     description,
     isPartOf: { "@id": `${SITE_URL}/#website` },
     step: [
-      { "@type": "HowToStep", name: "Install via npx skills add", text: "Run npx skills add guyaga/marketing-skills in your project root." },
+      { "@type": "HowToStep", name: "Install via npx skills add", text: "Run npx skills add guyaga/brief in your project root." },
       { "@type": "HowToStep", name: "Run product-marketing-context", text: "Have your AI agent run the product-marketing-context skill first to set up brand context." },
       { "@type": "HowToStep", name: "Use any skill", text: "Ask the agent to perform marketing tasks; it will load the relevant skill from the installed library." },
     ],

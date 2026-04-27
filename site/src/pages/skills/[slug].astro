@@ -26,7 +26,7 @@ const cat = categoryBySlug.get(meta.category)!;
 const persona = personaByCategory.get(meta.category);
 const { Content } = await render(entry);
 
-const upstreamUrl = `https://github.com/guyaga/marketing-skills/blob/main/skills/${meta.slug}/SKILL.md`;
+const upstreamUrl = `https://github.com/guyaga/brief/blob/main/skills/${meta.slug}/SKILL.md`;
 const relatedSkills = skillsMeta
   .filter((s) => s.category === meta.category && s.slug !== meta.slug)
   .slice(0, 6);
@@ -94,7 +94,7 @@ const relatedSkills = skillsMeta
         <div data-reveal>
           <InstallSnippet
             label="Install just this skill"
-            command={`npx degit guyaga/marketing-skills/skills/${meta.slug} .agents/skills/${meta.slug}`}
+            command={`npx degit guyaga/brief/skills/${meta.slug} .agents/skills/${meta.slug}`}
           />
           <details class="mt-3 group">
             <summary class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] cursor-pointer hover:text-[var(--color-ink-primary)] transition-colors list-none flex items-center gap-2">
@@ -104,14 +104,14 @@ const relatedSkills = skillsMeta
             <div class="mt-3 space-y-3 pl-3 border-l border-[var(--color-rule)]">
               <InstallSnippet
                 label={`Bundle install (all ${skillsMeta.length})`}
-                command="npx skills add guyaga/marketing-skills"
+                command="npx skills add guyaga/brief"
                 variant="muted"
               />
               <div>
                 <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-2">Or paste into Claude Code</div>
                 <p class="text-xs text-[var(--color-ink-secondary)] mb-2 leading-relaxed">No CLI needed. Claude fetches the skill and places it in your project.</p>
                 <InstallSnippet
-                  command={`Install the ${meta.name} marketing skill into .claude/skills/${meta.slug}/. Fetch SKILL.md from https://raw.githubusercontent.com/guyaga/marketing-skills/main/skills/${meta.slug}/SKILL.md and create the directory if needed.`}
+                  command={`Install the ${meta.name} marketing skill into .claude/skills/${meta.slug}/. Fetch SKILL.md from https://raw.githubusercontent.com/guyaga/brief/main/skills/${meta.slug}/SKILL.md and create the directory if needed.`}
                   variant="muted"
                 />
               </div>

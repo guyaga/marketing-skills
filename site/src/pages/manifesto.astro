@@ -1,0 +1,59 @@
+---
+import BrandLayout from "../layouts/BrandLayout.astro";
+import InstallSnippet from "../components/InstallSnippet.astro";
+import { story } from "../data/story";
+---
+
+<BrandLayout
+  title="Manifesto"
+  description="The 10 operating rules of the Brief team. Read context first. Specialists, not generalists. Brief, do not prompt. Voice over variety. Frameworks named. Cite, do not invent. Stage-fit before tactic. Honest about limits. One install, full team. Hand off, do not hoard."
+  schemaType="install"
+  breadcrumbs={[
+    { name: "Home", url: "https://marketing-skills.guyaga.ai/" },
+    { name: "Manifesto", url: "https://marketing-skills.guyaga.ai/manifesto/" },
+  ]}
+>
+  <!-- HERO -->
+  <section class="bg-grid-dark relative overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 pt-24 pb-20" data-reveal-group>
+      <div class="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--color-brand-red)] mb-6" data-reveal>
+        The 10 rules · Brief · v0.2
+      </div>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.0] max-w-4xl text-[var(--color-ink-primary)] mb-8" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;" data-reveal>
+        How the team operates.
+      </h1>
+      <p class="text-lg text-[var(--color-ink-secondary)] max-w-2xl leading-relaxed" data-reveal>
+        Ten rules the Brief team operates by. They are not principles or values. They are operating instructions — the contract between the user and the specialists.
+      </p>
+    </div>
+  </section>
+
+  <!-- RULES — full-width editorial layout, one rule per row -->
+  <section class="bg-[var(--color-bg-base)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-16" data-reveal-group>
+      {story.rules.map((rule, i) => (
+        <article class="grid md:grid-cols-12 gap-8 md:gap-12 py-14 md:py-20 border-b border-[var(--color-rule)] last:border-b-0" data-reveal>
+          <div class="md:col-span-3">
+            <div class={`font-display ${i === 0 ? "text-[var(--color-brand-red)]" : "text-[var(--color-ink-tertiary)]"} text-7xl md:text-8xl leading-none`} style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.04em;">{rule.n}</div>
+          </div>
+          <div class="md:col-span-9 max-w-3xl">
+            <h2 class="font-display text-3xl md:text-4xl lg:text-5xl text-[var(--color-ink-primary)] mb-5 leading-[1.05]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">{rule.title}</h2>
+            <p class="text-lg text-[var(--color-ink-secondary)] leading-relaxed">{rule.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- CLOSER -->
+  <section class="bg-[var(--color-bg-deeper)] border-y border-[var(--color-rule)]">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 py-24 text-center" data-reveal>
+      <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-6">{story.strapline}</div>
+      <h2 class="font-display text-4xl md:text-5xl mb-6 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">{story.installPromise.headline}</h2>
+      <p class="text-lg text-[var(--color-ink-secondary)] mb-8">{story.installPromise.body}</p>
+      <div class="max-w-xl mx-auto">
+        <InstallSnippet command="npx skills add guyaga/brief" />
+      </div>
+    </div>
+  </section>
+</BrandLayout>

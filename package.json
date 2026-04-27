@@ -1,12 +1,12 @@
 {
-  "name": "guyaga-marketing-skills",
-  "version": "0.1.0",
+  "name": "brief",
+  "version": "0.2.0",
   "private": true,
-  "description": "Marketing skills for AI agents, in Guy Aga's voice. Hub site + Claude Code plugin.",
+  "description": "Brief us. We ship the work. Ten marketing specialists for AI agents, in Guy Aga's voice. Hub site + Claude Code plugin.",
   "homepage": "https://marketing-skills.guyaga.ai",
   "repository": {
     "type": "git",
-    "url": "https://github.com/guyaga/marketing-skills.git"
+    "url": "https://github.com/guyaga/brief.git"
   },
   "license": "MIT",
   "author": "Guy Aga <guy@aga.digital> (https://guyaga.ai)",

@@ -25,26 +25,23 @@ const svg = `
   <rect x="80" y="80" width="4" height="56" fill="#e63b2e"/>
   <!-- eyebrow -->
   <text x="100" y="118" font-family="Inconsolata, JetBrains Mono, ui-monospace, monospace" font-size="14" fill="#e63b2e" font-weight="600" letter-spacing="3.5">
-    MARKETING SKILLS · v0.1
+    BRIEF · v0.2
   </text>
   <!-- main headline -->
-  <text x="80" y="280" font-family="Georgia, Fraunces, serif" font-size="84" fill="#f2efe8" font-weight="400" letter-spacing="-2">
-    Your AI marketing team.
+  <text x="80" y="290" font-family="Georgia, Fraunces, serif" font-size="108" fill="#f2efe8" font-weight="400" letter-spacing="-3">
+    Brief us.
   </text>
-  <text x="80" y="380" font-family="Georgia, Fraunces, serif" font-size="84" fill="#f2efe8" font-weight="400" letter-spacing="-2">
-    Ten specialists.
-  </text>
-  <text x="80" y="480" font-family="Georgia, Fraunces, serif" font-size="84" fill="#f2efe8" font-weight="400" letter-spacing="-2">
-    One install.
+  <text x="80" y="420" font-family="Georgia, Fraunces, serif" font-size="108" fill="#f2efe8" font-weight="400" letter-spacing="-3">
+    We ship the work.
   </text>
   <!-- footer mono row -->
   <line x1="80" y1="540" x2="1120" y2="540" stroke="#2a2a30" stroke-width="1"/>
   <text x="80" y="575" font-family="Inconsolata, JetBrains Mono, ui-monospace, monospace" font-size="14" fill="#b8b4ab" letter-spacing="2">
-    48 SKILLS · 10 SPECIALISTS · CRO · COPY · SEO · PAID · RETENTION · GROWTH
+    10 SPECIALISTS · 48 SKILLS · ONE INSTALL · CLAUDE CODE · CURSOR · CODEX
   </text>
   <!-- right-edge brand mark -->
   <text x="1120" y="118" font-family="Georgia, Fraunces, serif" font-size="22" fill="#f2efe8" text-anchor="end">
-    marketing-skills.guyaga.ai
+    brief by guyaga
   </text>
 </svg>
 `.trim();

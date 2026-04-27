@@ -37,12 +37,12 @@ const {
 } = Astro.props;
 
 const fullTitle = title === "Marketing Skills"
-  ? "Marketing Skills for AI Agents — 48 skills, 10 specialists | Guy Aga"
-  : `${title} — Marketing Skills | Guy Aga`;
+  ? "Brief — Brief us. We ship the work. Ten marketing specialists. | Guy Aga"
+  : `${title} — Brief | Guy Aga`;
 
 const desc =
   description ??
-  "48 marketing skills for AI agents. Ten specialists, one install. CRO, copy, SEO, paid, retention, growth — all in your editor (Claude Code, Cursor, Codex).";
+  "Brief us. We ship the work. Ten marketing specialists installed in your editor. Describe the problem; the right one steps in. CRO, copy, SEO, paid, retention, growth — for Claude Code, Cursor, Codex.";
 
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const ogImageUrl = ogImage
@@ -69,12 +69,12 @@ const ogImageUrl = ogImage
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Marketing Skills by Guy Aga" />
+    <meta property="og:site_name" content="Brief by Guy Aga" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Marketing Skills for AI Agents — 48 skills, 10 specialists, one install" />
+    <meta property="og:image:alt" content="Brief — Brief us. We ship the work. Ten marketing specialists. One install." />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />

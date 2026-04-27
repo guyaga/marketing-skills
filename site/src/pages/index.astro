@@ -22,19 +22,19 @@ const supportingPersonas = personas.slice(1);
     <div class="max-w-[1400px] mx-auto px-6 md:px-10 pt-24 pb-32 grid lg:grid-cols-12 gap-12 items-end">
       <div class="lg:col-span-8" data-reveal-group>
         <div class="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--color-brand-red)] mb-6" data-reveal>
-          Marketing skills · v0.1
+          Brief · v0.2 · {totalSpecialists} specialists · {totalSkills} skills
         </div>
         <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;" data-reveal>
-          Your AI marketing team.<br />
-          {totalSpecialists} specialists. One install.
+          Brief us.<br />
+          We ship the work.
         </h1>
         <p class="mt-8 text-lg text-[var(--color-ink-secondary)] max-w-2xl leading-relaxed" data-reveal>
-          {totalSkills} skills, organized by role. The Conversion Specialist owns CRO. The Strategist owns positioning. The Media Buyer owns paid. You ask the question, the right specialist steps in. One command drops the whole team into Claude Code, Cursor, and Codex.
+          Ten marketing specialists installed in your editor. Describe the problem; the right one steps in. The Conversion Specialist owns CRO. The Strategist owns positioning. The Media Buyer owns paid. {totalSkills} skills total — for Claude Code, Cursor, and Codex.
         </p>
         <div class="mt-10 max-w-xl" data-reveal>
           <InstallSnippet
             label="Install (recommended)"
-            command="npx skills add guyaga/marketing-skills"
+            command="npx skills add guyaga/brief"
             variant="deep"
           />
         </div>
@@ -69,11 +69,13 @@ const supportingPersonas = personas.slice(1);
     <div class="marquee-track py-4">
       {Array.from({ length: 4 }).map(() => (
         <div class="marquee-item">
+          <span>BRIEF US</span><span class="marquee-dot"></span>
+          <span>WE SHIP THE WORK</span><span class="marquee-dot"></span>
           <span>{totalSpecialists} SPECIALISTS</span><span class="marquee-dot"></span>
           <span>{totalSkills} SKILLS</span><span class="marquee-dot"></span>
           <span>ONE INSTALL</span><span class="marquee-dot"></span>
           <span>CRO · COPY · SEO · PAID · RETENTION · GROWTH</span><span class="marquee-dot"></span>
-          <span>FOR CLAUDE CODE · CURSOR · CODEX</span><span class="marquee-dot"></span>
+          <span>CLAUDE CODE · CURSOR · CODEX</span><span class="marquee-dot"></span>
           <span>MIT LICENSED</span><span class="marquee-dot"></span>
         </div>
       ))}
@@ -168,8 +170,8 @@ const supportingPersonas = personas.slice(1);
         <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-4">01 · Install</div>
         <h3 class="font-display text-2xl mb-4 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50;">One command, all {totalSkills} skills.</h3>
         <p class="text-sm leading-relaxed text-[var(--color-ink-secondary)]">
-          <code class="font-mono text-xs text-[var(--color-brand-warm)] bg-[var(--color-bg-elev-1)] border border-[var(--color-rule)] px-2 py-0.5">npx skills add guyaga/marketing-skills</code>
-          drops the skill files into <code class="font-mono text-xs text-[var(--color-brand-warm)] bg-[var(--color-bg-elev-1)] border border-[var(--color-rule)] px-2 py-0.5">.agents/skills/</code> and symlinks them for Claude Code.
+          <code class="font-mono text-xs text-[var(--color-brand-warm)] bg-[var(--color-bg-elev-1)] border border-[var(--color-rule)] px-2 py-0.5">npx skills add guyaga/brief</code>
+          drops every specialist into <code class="font-mono text-xs text-[var(--color-brand-warm)] bg-[var(--color-bg-elev-1)] border border-[var(--color-rule)] px-2 py-0.5">.agents/skills/</code> and symlinks them for Claude Code.
         </p>
       </div>
       <div data-reveal>
@@ -197,7 +199,7 @@ const supportingPersonas = personas.slice(1);
         {totalSkills} skills, MIT licensed, install in under a minute.
       </p>
       <div class="max-w-xl mx-auto">
-        <InstallSnippet command="npx skills add guyaga/marketing-skills" />
+        <InstallSnippet command="npx skills add guyaga/brief" />
       </div>
     </div>
   </section>

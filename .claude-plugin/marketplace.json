@@ -1,18 +1,18 @@
 {
-  "name": "guyaga-marketing-skills",
+  "name": "brief",
   "owner": {
     "name": "Guy Aga",
     "url": "https://guyaga.ai"
   },
   "metadata": {
-    "description": "Marketing skills for AI agents, in Guy Aga's voice. 40 skills across CRO, copy, SEO, paid, retention, growth, RevOps, and measurement.",
-    "version": "0.1.0",
-    "repository": "https://github.com/guyaga/marketing-skills"
+    "description": "Brief us. We ship the work. Ten marketing specialists for AI agents, in Guy Aga's voice. 48 skills across CRO, copy, SEO, paid, retention, growth, RevOps, and measurement.",
+    "version": "0.2.0",
+    "repository": "https://github.com/guyaga/brief"
   },
   "plugins": [
     {
-      "name": "guyaga-marketing-skills",
-      "description": "40 marketing skills for technical marketers and founders. CRO, copywriting, cold email, SEO, AI SEO, paid ads, ad creative, video, image, churn, pricing, referral, RevOps, sales enablement, customer research, site architecture, and more.",
+      "name": "brief",
+      "description": "48 marketing skills owned by ten named specialists. CRO, copywriting, cold email, SEO, AI SEO, paid ads, ad creative, video, image, churn, pricing, referral, RevOps, sales enablement, customer research, site architecture, and more.",
       "source": "./"
     }
   ]
