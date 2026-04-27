@@ -1,0 +1,31 @@
+---
+import { servicesForSkill } from "../data/skill-services";
+
+interface Props {
+  slug: string;
+  variant?: "sidebar" | "inline";
+}
+
+const { slug, variant = "sidebar" } = Astro.props;
+const services = servicesForSkill(slug);
+---
+
+{services.length > 0 && (
+  <div class={variant === "sidebar" ? "" : "mt-6"}>
+    <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-3">
+      Services in this skill
+    </div>
+    <div class="flex flex-wrap gap-2">
+      {services.map((s) => (
+        <a
+          href={s.url}
+          rel="noopener nofollow"
+          target="_blank"
+          class="font-mono text-[11px] tracking-wide border border-[var(--color-brand-rule)] bg-[var(--color-brand-paper)] hover:border-[var(--color-brand-red)] hover:text-[var(--color-brand-red)] px-2.5 py-1 transition-colors"
+        >
+          {s.name}<span class="ml-1 text-[var(--color-brand-muted)] group-hover:text-[var(--color-brand-red)]">↗</span>
+        </a>
+      ))}
+    </div>
+  </div>
+)}

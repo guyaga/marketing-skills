@@ -4,6 +4,7 @@ import BrandLayout from "../../layouts/BrandLayout.astro";
 import InstallSnippet from "../../components/InstallSnippet.astro";
 import CategoryBadge from "../../components/CategoryBadge.astro";
 import PersonaAvatar from "../../components/PersonaAvatar.astro";
+import SkillServices from "../../components/SkillServices.astro";
 import { skillsMeta, skillBySlug } from "../../data/skills-meta";
 import { categoryBySlug } from "../../data/categories";
 import { personaByCategory } from "../../data/personas";
@@ -75,12 +76,28 @@ const relatedSkills = skillsMeta
           </a>
         )}
 
-        <div>
+        <div class="space-y-3">
           <InstallSnippet
-            label={`Install all ${skillsMeta.length} skills`}
+            label="Install just this skill"
+            command={`npx degit guyaga/marketing-skills/skills/${meta.slug} .agents/skills/${meta.slug}`}
+          />
+          <InstallSnippet
+            label={`Or install all ${skillsMeta.length} skills`}
             command="npx skills add guyaga/marketing-skills"
           />
         </div>
+
+        <div class="border-t border-[var(--color-brand-rule)] pt-6">
+          <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-2">One-prompt install for Claude Code</div>
+          <p class="text-xs text-[var(--color-brand-black)]/70 mb-3 leading-relaxed">
+            No CLI needed. Paste this into a Claude Code session and Claude will fetch the skill and place it in your project.
+          </p>
+          <InstallSnippet
+            command={`Install the ${meta.name} marketing skill into .claude/skills/${meta.slug}/. Fetch SKILL.md from https://raw.githubusercontent.com/guyaga/marketing-skills/main/skills/${meta.slug}/SKILL.md and create the directory if needed.`}
+          />
+        </div>
+
+        <SkillServices slug={meta.slug} variant="sidebar" />
 
         <div class="border-t border-[var(--color-brand-rule)] pt-6 space-y-4">
           <div>
