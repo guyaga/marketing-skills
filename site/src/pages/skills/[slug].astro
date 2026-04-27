@@ -48,8 +48,8 @@ const relatedSkills = skillsMeta
 >
   <article class="bg-[var(--color-bg-base)]">
     <header class="border-b border-[var(--color-rule)] bg-[var(--color-bg-deeper)]">
-      <div class="max-w-[1280px] mx-auto px-6 md:px-10 pt-14 pb-12">
-        <nav class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-7 flex gap-2">
+      <div class="max-w-[1280px] mx-auto px-6 md:px-10 pt-14 pb-12" data-reveal-group>
+        <nav class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-7 flex flex-wrap gap-2" data-reveal>
           <a href="/" class="hover:text-[var(--color-brand-red)] transition-colors duration-200">Home</a>
           <span>/</span>
           <a href="/skills/" class="hover:text-[var(--color-brand-red)] transition-colors duration-200">Skills</a>
@@ -57,7 +57,7 @@ const relatedSkills = skillsMeta
           <a href={`/categories/${cat.slug}/`} class="hover:text-[var(--color-brand-red)] transition-colors duration-200">{cat.name}</a>
         </nav>
 
-        <div class="relative pl-6">
+        <div class="relative pl-6" data-reveal>
           <span class="absolute left-0 top-1 bottom-1 w-1 bg-[var(--color-brand-red)]"></span>
           <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
             <h1 class="font-display text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.05] text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">{meta.name}</h1>
@@ -71,61 +71,94 @@ const relatedSkills = skillsMeta
     </header>
 
     <div class="max-w-[1280px] mx-auto px-6 md:px-10 py-16 grid lg:grid-cols-12 gap-12">
-      <div class="lg:col-span-8 prose-skill">
+      <div class="lg:col-span-8 prose-skill" data-reveal>
         <Content />
       </div>
 
-      <aside class="lg:col-span-4 lg:sticky lg:top-24 lg:self-start space-y-8">
+      <aside class="lg:col-span-4 lg:sticky lg:top-24 lg:self-start space-y-6">
+
+        <!-- Block 1: Persona attribution (compact) -->
         {persona && (
-          <a href={`/categories/${persona.category}/`} class="flex items-center gap-3 p-3 border border-[var(--color-rule)] bg-[var(--color-bg-elev-1)] hover:border-[var(--color-rule-strong)] transition-colors duration-200 group">
+          <a href={`/categories/${persona.category}/`} class="flex items-center gap-3 p-3 border border-[var(--color-rule)] bg-[var(--color-bg-elev-1)] hover:border-[var(--color-rule-strong)] transition-colors duration-200 group" data-reveal>
             <PersonaAvatar persona={persona} size="md" link={false} />
             <div class="flex-1 min-w-0">
               <div class="font-mono text-[9px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)]">Owned by</div>
               <div class="font-display text-base text-[var(--color-ink-primary)] group-hover:text-[var(--color-brand-red)] transition-colors duration-200 leading-tight" style="font-variation-settings: 'SOFT' 50;">{persona.name}</div>
               <div class="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--color-ink-tertiary)] mt-0.5">{persona.role}</div>
             </div>
+            <span class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] group-hover:text-[var(--color-brand-red)] transition-colors duration-200">→</span>
           </a>
         )}
 
-        <div class="space-y-3">
-          <InstallSnippet label="Install just this skill" command={`npx degit guyaga/marketing-skills/skills/${meta.slug} .agents/skills/${meta.slug}`} />
-          <InstallSnippet label={`Or install all ${skillsMeta.length} skills`} command="npx skills add guyaga/marketing-skills" variant="muted" />
+        <!-- Block 2: Single primary install + collapsed alternatives -->
+        <div data-reveal>
+          <InstallSnippet
+            label="Install just this skill"
+            command={`npx degit guyaga/marketing-skills/skills/${meta.slug} .agents/skills/${meta.slug}`}
+          />
+          <details class="mt-3 group">
+            <summary class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] cursor-pointer hover:text-[var(--color-ink-primary)] transition-colors list-none flex items-center gap-2">
+              <span class="inline-block w-2 h-2 border-r border-b border-current rotate-45 group-open:-rotate-135 transition-transform duration-200"></span>
+              Two more install methods
+            </summary>
+            <div class="mt-3 space-y-3 pl-3 border-l border-[var(--color-rule)]">
+              <InstallSnippet
+                label={`Bundle install (all ${skillsMeta.length})`}
+                command="npx skills add guyaga/marketing-skills"
+                variant="muted"
+              />
+              <div>
+                <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-2">Or paste into Claude Code</div>
+                <p class="text-xs text-[var(--color-ink-secondary)] mb-2 leading-relaxed">No CLI needed. Claude fetches the skill and places it in your project.</p>
+                <InstallSnippet
+                  command={`Install the ${meta.name} marketing skill into .claude/skills/${meta.slug}/. Fetch SKILL.md from https://raw.githubusercontent.com/guyaga/marketing-skills/main/skills/${meta.slug}/SKILL.md and create the directory if needed.`}
+                  variant="muted"
+                />
+              </div>
+            </div>
+          </details>
         </div>
 
-        <div class="border-t border-[var(--color-rule)] pt-6">
-          <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-2">One-prompt install for Claude Code</div>
-          <p class="text-xs text-[var(--color-ink-secondary)] mb-3 leading-relaxed">
-            No CLI needed. Paste this into a Claude Code session and Claude will fetch the skill and place it in your project.
-          </p>
-          <InstallSnippet command={`Install the ${meta.name} marketing skill into .claude/skills/${meta.slug}/. Fetch SKILL.md from https://raw.githubusercontent.com/guyaga/marketing-skills/main/skills/${meta.slug}/SKILL.md and create the directory if needed.`} />
+        <!-- Block 3: Services chips -->
+        <div data-reveal>
+          <SkillServices slug={meta.slug} variant="sidebar" />
         </div>
 
-        <SkillServices slug={meta.slug} variant="sidebar" />
-
-        <div class="border-t border-[var(--color-rule)] pt-6 space-y-4">
-          <div>
-            <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-2">Skill ID</div>
-            <code class="font-mono text-sm text-[var(--color-brand-warm)]">{meta.slug}</code>
-          </div>
-          <div>
-            <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-2">Source</div>
-            <a href={upstreamUrl} class="font-mono text-sm text-[var(--color-brand-red)] underline" rel="noopener">View on GitHub ↗</a>
+        <!-- Block 4: Meta + related (combined, low visual weight) -->
+        <div class="border-t border-[var(--color-rule)] pt-6 space-y-5" data-reveal>
+          {relatedSkills.length > 0 && (
+            <div>
+              <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-3">More in {cat.name}</div>
+              <ul class="space-y-1.5">
+                {relatedSkills.map((s) => (
+                  <li>
+                    <a href={`/skills/${s.slug}/`} class="text-sm text-[var(--color-ink-primary)] hover:text-[var(--color-brand-red)] transition-colors duration-200">{s.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div class="flex justify-between items-center text-xs pt-2 border-t border-[var(--color-rule)]">
+            <code class="font-mono text-[var(--color-brand-warm)]">{meta.slug}</code>
+            <a href={upstreamUrl} class="font-mono text-[var(--color-ink-tertiary)] hover:text-[var(--color-brand-red)] transition-colors" rel="noopener">View source ↗</a>
           </div>
         </div>
-
-        {relatedSkills.length > 0 && (
-          <div class="border-t border-[var(--color-rule)] pt-6">
-            <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-3">More in {cat.name}</div>
-            <ul class="space-y-2">
-              {relatedSkills.map((s) => (
-                <li>
-                  <a href={`/skills/${s.slug}/`} class="text-sm text-[var(--color-ink-primary)] hover:text-[var(--color-brand-red)] transition-colors duration-200">{s.name}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </aside>
     </div>
   </article>
 </BrandLayout>
+
+<style>
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  .group-open\\:-rotate-135 {
+    transform-origin: center;
+  }
+  details[open] > summary span:first-child {
+    transform: rotate(-135deg) translate(-1px, -1px);
+  }
+</style>

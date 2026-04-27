@@ -125,5 +125,62 @@ const ogImageUrl = ogImage
       <slot />
     </main>
     <BrandFooter />
+
+    <script is:inline>
+      // Scroll-triggered stagger reveal — IntersectionObserver based.
+      // Above-the-fold elements reveal synchronously (still staggered) so
+      // there's no blink of empty content on initial paint.
+      (function () {
+        const reveals = document.querySelectorAll("[data-reveal]");
+        if (!reveals.length) return;
+
+        // Setup stagger delays
+        reveals.forEach((el) => {
+          const parent = el.closest("[data-reveal-group]");
+          if (parent && !el.style.getPropertyValue("--reveal-delay")) {
+            const siblings = Array.from(parent.querySelectorAll("[data-reveal]"));
+            const idx = siblings.indexOf(el);
+            el.style.setProperty("--reveal-delay", `${idx * 70}ms`);
+          }
+        });
+
+        // Reduced-motion: reveal everything immediately
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          reveals.forEach((el) => el.classList.add("is-revealed"));
+          return;
+        }
+
+        // No IO support: just reveal everything
+        if (!("IntersectionObserver" in window)) {
+          reveals.forEach((el) => el.classList.add("is-revealed"));
+          return;
+        }
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-revealed");
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.05, rootMargin: "0px 0px -8% 0px" }
+        );
+
+        // Reveal already-visible elements synchronously (still respects stagger
+        // via CSS transition-delay), observe the rest.
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        reveals.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < vh && rect.bottom > 0) {
+            // Use rAF so the initial styles paint, then the transition kicks in
+            requestAnimationFrame(() => el.classList.add("is-revealed"));
+          } else {
+            io.observe(el);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

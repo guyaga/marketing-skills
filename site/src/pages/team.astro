@@ -1,10 +1,16 @@
 ---
 import BrandLayout from "../layouts/BrandLayout.astro";
 import PersonaCard from "../components/PersonaCard.astro";
+import PersonaAvatar from "../components/PersonaAvatar.astro";
 import InstallSnippet from "../components/InstallSnippet.astro";
 import { personas } from "../data/personas";
 import { story } from "../data/story";
 import { skillsMeta } from "../data/skills-meta";
+import { skillsByCategory } from "../data/skills-meta";
+
+// Hero persona — Elias as the face of the team
+const heroPersona = personas[0];
+const heroOwns = skillsByCategory(heroPersona.category);
 ---
 
 <BrandLayout
@@ -16,40 +22,89 @@ import { skillsMeta } from "../data/skills-meta";
     { name: "The Team", url: "https://marketing-skills.guyaga.ai/team/" },
   ]}
 >
-  <!-- HERO -->
-  <section class="bg-grid-dark text-[var(--color-ink-primary)]">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 pt-24 pb-20">
-      <div class="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--color-brand-red)] mb-6">
-        Ten specialists · {skillsMeta.length} skills
+  <!-- HERO — asymmetric split with breathing hero persona on the right -->
+  <section class="bg-grid-dark relative overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 pt-24 pb-24 grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7" data-reveal-group>
+        <div class="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--color-brand-red)] mb-6" data-reveal>
+          Ten specialists · {skillsMeta.length} skills
+        </div>
+        <h1 class="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.0] text-[var(--color-ink-primary)] mb-8" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;" data-reveal>
+          {story.hookHeadline}
+        </h1>
+        <p class="text-lg text-[var(--color-ink-secondary)] max-w-2xl leading-relaxed mb-8" data-reveal>
+          {story.hookSub}
+        </p>
+        <div class="flex flex-wrap items-center gap-4" data-reveal>
+          <a href="#roster" class="font-mono text-xs tracking-[0.22em] uppercase border border-[var(--color-rule-strong)] text-[var(--color-ink-primary)] px-4 py-2.5 hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-bg-base)] hover:border-[var(--color-ink-primary)] transition-all duration-200 active:scale-[0.97]">
+            Meet all ten →
+          </a>
+          <a href="#origin" class="font-mono text-xs tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] px-2 py-2.5 hover:text-[var(--color-brand-red)] transition-colors">
+            Why these ten ↓
+          </a>
+        </div>
       </div>
-      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05] max-w-4xl text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">
-        {story.hookHeadline}
-      </h1>
-      <p class="mt-8 text-lg text-[var(--color-ink-secondary)] max-w-3xl leading-relaxed">
-        {story.hookSub}
-      </p>
+
+      <!-- Right column: hero persona with breathing animation + floating mono labels -->
+      <div class="lg:col-span-5 relative flex justify-center lg:justify-end" data-reveal>
+        <div class="relative">
+          <PersonaAvatar persona={heroPersona} size="hero" link={false} breathe={true} eager={true} />
+          <!-- floating mono labels around the avatar -->
+          <div class="absolute -top-3 -left-2 md:-left-6 hidden md:block">
+            <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] bg-[var(--color-bg-deeper)]/80 backdrop-blur px-2 py-1 border border-[var(--color-rule)]">
+              01 · {heroPersona.role}
+            </div>
+          </div>
+          <div class="absolute -bottom-4 -right-2 md:-right-8 max-w-[260px]">
+            <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-1">Owns</div>
+            <div class="font-mono text-xs text-[var(--color-ink-primary)] leading-snug">
+              {heroOwns.map((s) => s.name).join(" · ")}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KINETIC MARQUEE -->
+  <section class="border-y border-[var(--color-rule)] bg-[var(--color-bg-deeper)] overflow-hidden">
+    <div class="marquee-track py-4">
+      {Array.from({ length: 4 }).map(() => (
+        <div class="marquee-item">
+          <span>10 SPECIALISTS</span><span class="marquee-dot"></span>
+          <span>{skillsMeta.length} SKILLS</span><span class="marquee-dot"></span>
+          <span>ONE INSTALL</span><span class="marquee-dot"></span>
+          <span>CRO · COPY · SEO · PAID · RETENTION</span><span class="marquee-dot"></span>
+          <span>MIT LICENSED</span><span class="marquee-dot"></span>
+          <span>FOR CLAUDE CODE · CURSOR · CODEX</span><span class="marquee-dot"></span>
+        </div>
+      ))}
     </div>
   </section>
 
   <!-- ORIGIN STORY -->
-  <section class="bg-[var(--color-bg-deeper)] border-y border-[var(--color-rule)]">
-    <div class="max-w-4xl mx-auto px-6 md:px-10 py-24">
-      <h2 class="font-display text-3xl md:text-4xl mb-10 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;">{story.origin.title}</h2>
+  <section id="origin" class="bg-[var(--color-bg-deeper)] border-b border-[var(--color-rule)]">
+    <div class="max-w-4xl mx-auto px-6 md:px-10 py-24" data-reveal-group>
+      <h2 class="font-display text-3xl md:text-4xl mb-10 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;" data-reveal>{story.origin.title}</h2>
       <div class="space-y-5 text-[17px] leading-relaxed text-[var(--color-ink-primary)]/90">
-        {story.origin.body.map((para) => <p>{para}</p>)}
+        {story.origin.body.map((para) => <p data-reveal>{para}</p>)}
       </div>
     </div>
   </section>
 
   <!-- TEAM ROSTER -->
-  <section class="bg-[var(--color-bg-base)]">
+  <section id="roster" class="bg-[var(--color-bg-base)]">
     <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24">
-      <div class="border-b border-[var(--color-rule)] pb-4 mb-16">
+      <div class="border-b border-[var(--color-rule)] pb-4 mb-16" data-reveal>
         <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-2">The roster</div>
         <h2 class="font-display text-3xl md:text-4xl text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;">Ten specialists, one team.</h2>
       </div>
-      <div class="space-y-16">
-        {personas.map((p) => <PersonaCard persona={p} variant="full" />)}
+      <div class="space-y-16" data-reveal-group>
+        {personas.map((p) => (
+          <div data-reveal>
+            <PersonaCard persona={p} variant="full" />
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -57,11 +112,13 @@ import { skillsMeta } from "../data/skills-meta";
   <!-- PHILOSOPHY -->
   <section class="bg-grid-dark text-[var(--color-ink-primary)] border-t border-[var(--color-rule)]">
     <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24">
-      <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-2">How the team works</div>
-      <h2 class="font-display text-3xl md:text-4xl mb-16 max-w-3xl text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;">Four principles the team operates by.</h2>
-      <div class="grid md:grid-cols-2 gap-12">
+      <div data-reveal>
+        <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-2">How the team works</div>
+        <h2 class="font-display text-3xl md:text-4xl mb-16 max-w-3xl text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;">Four principles the team operates by.</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12" data-reveal-group>
         {story.philosophyPoints.map((pt, i) => (
-          <div class="border-t border-[var(--color-rule)] pt-7">
+          <div class="border-t border-[var(--color-rule)] pt-7" data-reveal>
             <div class="font-mono text-3xl text-[var(--color-brand-red)] mb-4">{String(i + 1).padStart(2, "0")}</div>
             <h3 class="font-display text-2xl mb-4 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50;">{pt.title}</h3>
             <p class="text-[15px] leading-relaxed text-[var(--color-ink-secondary)]">{pt.body}</p>
@@ -73,7 +130,7 @@ import { skillsMeta } from "../data/skills-meta";
 
   <!-- CTA -->
   <section class="bg-[var(--color-bg-base)]">
-    <div class="max-w-3xl mx-auto px-6 md:px-10 py-24 text-center">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 py-24 text-center" data-reveal>
       <h2 class="font-display text-4xl md:text-5xl mb-6 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">{story.installPromise.headline}</h2>
       <p class="text-lg text-[var(--color-ink-secondary)] mb-8">{story.installPromise.body}</p>
       <div class="max-w-xl mx-auto">
