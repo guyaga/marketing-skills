@@ -1,13 +1,10 @@
 // Generate 10 persona avatars via OpenAI gpt-image-2.
-// Locked style block + per-persona description.
-// Runs all 10 in parallel via Promise.all.
+// Tighter style block, medium quality, batched 3 concurrent, retries.
 //
 // Usage: OPENAI_API_KEY=sk-... node tools/generate-avatars.mjs
-//
-// Requires: openai SDK (resolved from ~/.claude/skills/gpt2-image/node_modules)
 
 import { createRequire } from "module";
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import os from "os";
@@ -16,117 +13,87 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const skillNodeModules = join(os.homedir(), ".claude", "skills", "gpt2-image", "node_modules");
 const require = createRequire(import.meta.url);
 
-// Resolve openai from the gpt2-image skill folder (already installed there).
 let OpenAI;
 try {
   OpenAI = require(join(skillNodeModules, "openai")).default;
 } catch (e) {
-  console.error("Failed to find openai SDK at", skillNodeModules);
   console.error("Run: npm install openai --prefix ~/.claude/skills/gpt2-image");
   process.exit(1);
 }
 
-const client = new OpenAI();
+const client = new OpenAI({
+  timeout: 300_000,
+  maxRetries: 3,
+});
+
 const OUT_DIR = join(__dirname, "..", "site", "public", "avatars");
 mkdirSync(OUT_DIR, { recursive: true });
 
-const STYLE = `Photorealistic editorial portrait of a single person, chest-up framing, subject looking three-quarter angle slightly off-camera, relaxed neutral expression with at most a faint half-smile. Shot on 35mm film with subtle grain, natural directional lighting from camera left, sharp focus on the eyes, slight depth of field. Background: warm off-white textured paper backdrop in #F5F3EE tone, subtle linen-like grain, no objects, no patterns. Subject wears minimal monochrome clothing in black, charcoal gray, or off-white — no visible logos, no patterns, no branded apparel. Exactly one small signal-red accent visible somewhere in the frame, color #E63B2E. High contrast, slight desaturation, low cinematic grading. Square 1:1 composition, subject framed centrally with subtle negative space. Aesthetic: agency magazine profile photograph, like a Vanity Fair editorial portrait of a senior marketing creative — restrained, intentional, expensive, never stock-photo. Avoid: stock photo feel, sunglasses, multiple subjects, busy backgrounds, hands visible making gestures, wide grins, cinematic teal-orange grading, fluorescent lighting, fashion-shoot intensity.`;
+const STYLE = `Photorealistic editorial portrait, chest-up, three-quarter angle, relaxed neutral expression. Shot on 35mm film, natural directional lighting from camera left, sharp focus on the eyes. Background: warm off-white textured paper, color #F5F3EE, no objects. Subject wears minimal monochrome clothing in black, charcoal, or off-white, no logos, no patterns. One small signal-red accent (#E63B2E) visible in the frame. Square 1:1 composition. Magazine-editorial aesthetic. Avoid stock photo feel, sunglasses, multiple subjects, busy backgrounds, wide grins, cinematic color grading.`;
 
 const personas = [
-  {
-    slug: "elias-the-brand-lead",
-    role: "The Brand Lead",
-    description:
-      "A man in his late 50s with salt-and-pepper hair, deep-set thoughtful eyes, weathered but kind face, the look of an architect or senior editor who listens before speaking. White or Mediterranean features. Wears a fitted black mock-neck sweater. A single small signal-red ribbon detail pinned to his collar.",
-  },
-  {
-    slug: "maya-the-conversion-specialist",
-    role: "The Conversion Specialist",
-    description:
-      "A woman in her early 30s with dark hair pulled back into a low ponytail, sharply focused expression, the suggestion of a slight frown of concentration. East-Asian-Canadian features. Wears a crisp white button-down shirt under a charcoal blazer. A small signal-red analog wristwatch face visible at the lower edge of the frame.",
-  },
-  {
-    slug: "daniel-the-copy-chief",
-    role: "The Copy Chief",
-    description:
-      "A man in his mid-40s with slightly disheveled dark curly hair, reading glasses pushed up onto his forehead, expressive bookish face suggesting an editor or essayist. Mediterranean features. Wears a heather gray cardigan over a white crew-neck t-shirt. A signal-red felt-tip pen tucked behind his right ear.",
-  },
-  {
-    slug: "yara-the-seo-lead",
-    role: "The SEO Lead",
-    description:
-      "A woman in her late 30s with tightly braided black hair pulled back, calm patient gaze, technically-minded composure. Middle-Eastern features. Wears a fitted black mock-neck sweater. A small signal-red round stud earring on her visible ear.",
-  },
-  {
-    slug: "reza-the-media-buyer",
-    role: "The Media Buyer",
-    description:
-      "A man in his early 30s with a clean-shaven head and short trimmed beard, intense alert eyes, the half-smile of someone watching dashboards in real-time. Persian features. Wears a fitted black bomber jacket over a plain white t-shirt. A signal-red watch face on his left wrist visible at the bottom of the frame.",
-  },
-  {
-    slug: "nadia-the-strategist",
-    role: "The Strategist",
-    description:
-      "A woman in her mid-40s with dark gray-streaked hair in a low bun, skeptical-but-attentive expression with one eyebrow slightly raised, the look of a senior strategist who has heard every pitch twice. South-Asian features. Wears a charcoal blazer over a black silk shirt. A signal-red ink mark visible on the side of her index finger as if she just took notes.",
-  },
-  {
-    slug: "ines-the-customer-success-lead",
-    role: "The Customer Success Lead",
-    description:
-      "A woman in her late 30s with shoulder-length wavy brown hair, warm empathetic eyes, a soft knowing half-smile suggesting she has heard the truth before the customer said it. Latin-American features. Wears a cream linen shirt under a fitted black vest. A small embroidered signal-red flower at the collar of the linen shirt.",
-  },
-  {
-    slug: "theo-the-growth-engineer",
-    role: "The Growth Engineer",
-    description:
-      "A man in his early 30s with messy short brown hair, focused builder's expression, light stubble, the look of an engineer-marketer who ships on weekends. Northern-European features. Wears a plain black hoodie under an unstructured charcoal jacket. A signal-red zip-tie wrapped around the leather strap of a satchel resting against his shoulder.",
-  },
-  {
-    slug: "marcus-the-operator",
-    role: "The Operator",
-    description:
-      "A man in his late 40s with short well-groomed graying hair, calm process-disciplined gaze, faint half-smile. African-American features. Wears a tailored black suit jacket over a white shirt without a tie. A signal-red lanyard tag visible at his collar, partially tucked under the jacket.",
-  },
-  {
-    slug: "priya-the-analyst",
-    role: "The Analyst",
-    description:
-      "A woman in her early 30s with shoulder-length straight black hair, thin-framed glasses, sharp dry expression of cool quiet intelligence. South-Asian features. Wears a fitted heather-gray fine-knit sweater. A signal-red notebook tucked under her left arm, only the edge of the cover visible at the side of the frame.",
-  },
+  { slug: "elias-the-brand-lead", desc: "Man in his late 50s, salt-and-pepper hair, deep-set thoughtful eyes, weathered kind face. Mediterranean features. Black mock-neck sweater. Small signal-red ribbon pinned to collar." },
+  { slug: "maya-the-conversion-specialist", desc: "Woman in her early 30s, dark hair pulled back, sharply focused expression. East-Asian features. White button-down under charcoal blazer. Signal-red watch face at lower edge of frame." },
+  { slug: "daniel-the-copy-chief", desc: "Man in his mid-40s, slightly disheveled curly dark hair, reading glasses pushed onto forehead, bookish face. Mediterranean features. Gray cardigan over white t-shirt. Signal-red felt pen behind right ear." },
+  { slug: "yara-the-seo-lead", desc: "Woman in her late 30s, tightly braided black hair, calm patient gaze. Middle-Eastern features. Fitted black mock-neck sweater. Small signal-red round stud earring." },
+  { slug: "reza-the-media-buyer", desc: "Man in his early 30s, clean-shaven head, short trimmed beard, intense alert eyes, faint half-smile. Persian features. Black bomber jacket over white tee. Signal-red watch face on left wrist." },
+  { slug: "nadia-the-strategist", desc: "Woman in her mid-40s, dark gray-streaked hair in low bun, skeptical attentive expression with one eyebrow slightly raised. South-Asian features. Charcoal blazer over black silk shirt. Signal-red ink mark on side of index finger." },
+  { slug: "ines-the-customer-success-lead", desc: "Woman in her late 30s, shoulder-length wavy brown hair, warm empathetic eyes, soft knowing half-smile. Latin-American features. Cream linen shirt under fitted black vest. Small signal-red embroidered flower on collar." },
+  { slug: "theo-the-growth-engineer", desc: "Man in his early 30s, messy short brown hair, focused builder expression, light stubble. Northern-European features. Plain black hoodie under unstructured charcoal jacket. Signal-red zip-tie around leather satchel strap." },
+  { slug: "marcus-the-operator", desc: "Man in his late 40s, short well-groomed graying hair, calm process-disciplined gaze, faint half-smile. African-American features. Tailored black suit jacket over white shirt without tie. Signal-red lanyard tag at collar." },
+  { slug: "priya-the-analyst", desc: "Woman in her early 30s, shoulder-length straight black hair, thin-framed glasses, sharp dry expression. South-Asian features. Fitted heather-gray sweater. Signal-red notebook tucked under left arm, edge visible." },
 ];
 
-console.log(`Generating ${personas.length} avatars in parallel — this typically takes 60-120s per image.`);
-const start = Date.now();
-
-const results = await Promise.allSettled(
-  personas.map(async (p) => {
-    const prompt = `${STYLE}\n\nSubject: ${p.description}`;
-    const t0 = Date.now();
-    process.stdout.write(`▶ ${p.slug}…\n`);
+async function generate(p) {
+  const outPath = join(OUT_DIR, `${p.slug}.png`);
+  if (existsSync(outPath)) {
+    process.stdout.write(`◌ ${p.slug} (already exists, skip)\n`);
+    return { slug: p.slug, path: outPath, skipped: true };
+  }
+  const prompt = `${STYLE}\n\nSubject: ${p.desc}`;
+  const t0 = Date.now();
+  process.stdout.write(`▶ ${p.slug}…\n`);
+  try {
     const res = await client.images.generate({
       model: "gpt-image-2",
       prompt,
       size: "1024x1024",
-      quality: "high",
+      quality: "medium",
       n: 1,
     });
     const b64 = res.data?.[0]?.b64_json;
-    if (!b64) {
-      throw new Error(`No image returned for ${p.slug}`);
-    }
-    const outPath = join(OUT_DIR, `${p.slug}.png`);
+    if (!b64) throw new Error("No image returned");
     writeFileSync(outPath, Buffer.from(b64, "base64"));
     const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
-    process.stdout.write(`✓ ${p.slug} (${elapsed}s) → ${outPath}\n`);
+    process.stdout.write(`✓ ${p.slug} (${elapsed}s)\n`);
     return { slug: p.slug, path: outPath };
-  })
-);
+  } catch (err) {
+    const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
+    process.stdout.write(`✗ ${p.slug} (${elapsed}s): ${err.message}\n`);
+    throw err;
+  }
+}
 
-const ok = results.filter((r) => r.status === "fulfilled");
+// Batch processing — N at a time
+async function runBatched(items, batchSize) {
+  const results = [];
+  for (let i = 0; i < items.length; i += batchSize) {
+    const batch = items.slice(i, i + batchSize);
+    process.stdout.write(`\n--- Batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(items.length / batchSize)} (${batch.length} items) ---\n`);
+    const batchResults = await Promise.allSettled(batch.map(generate));
+    results.push(...batchResults);
+  }
+  return results;
+}
+
+const start = Date.now();
+console.log(`Generating ${personas.length} avatars sequentially (batch=1), medium quality, with retries. Existing files skip.`);
+const results = await runBatched(personas, 1);
+const ok = results.filter((r) => r.status === "fulfilled").length;
 const fail = results.filter((r) => r.status === "rejected");
 const totalSec = ((Date.now() - start) / 1000).toFixed(1);
 
-console.log(`\nDone in ${totalSec}s. ${ok.length}/${personas.length} succeeded.`);
+console.log(`\n=== Done in ${totalSec}s. ${ok}/${personas.length} succeeded. ===`);
 if (fail.length) {
   console.log(`\nFailures:`);
   for (const f of fail) console.log(`  - ${f.reason?.message ?? f.reason}`);
