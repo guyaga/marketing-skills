@@ -1,0 +1,19 @@
+guyaga-marketing-skills
+=======================
+
+This project is a brand-customized adaptation of:
+
+  marketing-skills (https://github.com/coreyhaines31/marketingskills)
+  Copyright (c) Corey Haines (https://corey.co)
+  Licensed under the MIT License.
+
+The skill bodies in `skills/` are derivative works of the upstream project
+and remain under the upstream MIT License. Visible-surface copy
+(homepage, category descriptions, per-skill descriptions, install docs)
+has been rewritten in the Guy Aga voice.
+
+If you want the original, unbranded source, install with:
+
+  npx skills add coreyhaines31/marketingskills
+
+Adaptation by Guy Aga, https://guyaga.ai.

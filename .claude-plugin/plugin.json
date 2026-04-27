@@ -1,0 +1,13 @@
+{
+  "name": "guyaga-marketing-skills",
+  "description": "Marketing skills for AI agents, in Guy Aga's voice. CRO, copywriting, SEO, paid, retention, growth engineering.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Guy Aga",
+    "url": "https://guyaga.ai"
+  },
+  "homepage": "https://marketing-skills.guyaga.ai",
+  "repository": "https://github.com/guyaga/marketing-skills",
+  "license": "MIT",
+  "skills": "./skills"
+}

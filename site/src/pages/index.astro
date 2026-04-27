@@ -1,0 +1,141 @@
+---
+import BrandLayout from "../layouts/BrandLayout.astro";
+import InstallSnippet from "../components/InstallSnippet.astro";
+import { categories } from "../data/categories";
+import { skillsMeta } from "../data/skills-meta";
+
+const totalSkills = skillsMeta.length;
+const skillsPerCategory = (slug: string) =>
+  skillsMeta.filter((s) => s.category === slug).length;
+---
+
+<BrandLayout title="Marketing Skills">
+  <!-- HERO -->
+  <section class="bg-grid-dark text-[var(--color-brand-paper)]">
+    <div class="max-w-6xl mx-auto px-6 pt-24 pb-32 grid lg:grid-cols-12 gap-12 items-end">
+      <div class="lg:col-span-8">
+        <div class="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--color-brand-red)] mb-6">
+          Marketing skills · v0.1
+        </div>
+        <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
+          {totalSkills} marketing skills<br />
+          your AI agent can run today.
+        </h1>
+        <p class="mt-8 text-lg text-[var(--color-brand-beige)] max-w-2xl leading-relaxed">
+          CRO, copywriting, SEO, paid ads, retention, growth engineering. One install command and all {totalSkills} land in Claude Code, Cursor, and Codex. Then your agent runs them like a marketer would.
+        </p>
+        <div class="mt-10 max-w-xl">
+          <InstallSnippet
+            label="Install (recommended)"
+            command="npx skills add guyaga/marketing-skills"
+            variant="dark"
+          />
+        </div>
+        <div class="mt-6 flex gap-4 text-sm">
+          <a href="/skills/" class="font-mono text-xs tracking-[0.2em] uppercase border border-[var(--color-brand-paper)] px-4 py-2 hover:bg-[var(--color-brand-paper)] hover:text-[var(--color-brand-black)] transition-colors">
+            Browse {totalSkills} skills →
+          </a>
+          <a href="/install/" class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--color-brand-muted)] px-4 py-2 hover:text-[var(--color-brand-red)] transition-colors">
+            Other install methods
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-4 lg:pl-8 lg:border-l border-[var(--color-brand-grid)] hidden lg:block">
+        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-4">
+          What it covers
+        </div>
+        <ul class="space-y-3 text-sm text-[var(--color-brand-beige)]">
+          {categories.slice(0, 5).map((c) => (
+            <li class="flex justify-between border-b border-[var(--color-brand-grid)] pb-2">
+              <span>{c.name}</span>
+              <span class="font-mono text-[var(--color-brand-muted)]">{skillsPerCategory(c.slug).toString().padStart(2, "0")}</span>
+            </li>
+          ))}
+          {categories.slice(5).map((c) => (
+            <li class="flex justify-between border-b border-[var(--color-brand-grid)] pb-2">
+              <span>{c.name}</span>
+              <span class="font-mono text-[var(--color-brand-muted)]">{skillsPerCategory(c.slug).toString().padStart(2, "0")}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="bg-[var(--color-brand-paper)]">
+    <div class="max-w-6xl mx-auto px-6 py-24">
+      <div class="flex items-baseline justify-between mb-12 border-b border-[var(--color-brand-rule)] pb-4">
+        <h2 class="font-display text-3xl md:text-4xl">Ten categories</h2>
+        <a href="/skills/" class="font-mono text-[10px] tracking-[0.2em] uppercase hover:text-[var(--color-brand-red)] transition-colors">
+          See all {totalSkills} →
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {categories.map((c) => (
+          <a
+            href={`/categories/${c.slug}/`}
+            class="group block border border-[var(--color-brand-rule)] hover:border-[var(--color-brand-black)] transition-colors p-6"
+          >
+            <div class="flex items-baseline justify-between mb-2">
+              <h3 class="font-display text-2xl text-[var(--color-brand-black)] group-hover:text-[var(--color-brand-red)] transition-colors">
+                {c.name}
+              </h3>
+              <span class="font-mono text-xs text-[var(--color-brand-muted)]">
+                {skillsPerCategory(c.slug).toString().padStart(2, "0")} skills
+              </span>
+            </div>
+            <p class="text-sm text-[var(--color-brand-black)]/75 leading-relaxed">
+              {c.description}
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="bg-[var(--color-brand-beige)]">
+    <div class="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-3 gap-10">
+      <div>
+        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-3">01 · Install</div>
+        <h3 class="font-display text-xl mb-3">One command, all 40 skills.</h3>
+        <p class="text-sm leading-relaxed text-[var(--color-brand-black)]/80">
+          <code class="font-mono text-xs bg-[var(--color-brand-paper)] px-2 py-1">npx skills add guyaga/marketing-skills</code>
+          drops the skill files into <code class="font-mono text-xs bg-[var(--color-brand-paper)] px-2 py-1">.agents/skills/</code> and symlinks them for Claude Code.
+        </p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-3">02 · Set context</div>
+        <h3 class="font-display text-xl mb-3">Run product-marketing-context first.</h3>
+        <p class="text-sm leading-relaxed text-[var(--color-brand-black)]/80">
+          Every other skill reads this document before it does anything. It is your audience, positioning, and voice in one place. The agent fills it in with you.
+        </p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-3">03 · Ship work</div>
+        <h3 class="font-display text-xl mb-3">Then ask the agent to do anything.</h3>
+        <p class="text-sm leading-relaxed text-[var(--color-brand-black)]/80">
+          "Write a comparison page against [competitor]." "Audit my signup flow." "Plan our launch." Each skill is a structured prompt the agent runs end to end.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-[var(--color-brand-paper)]">
+    <div class="max-w-3xl mx-auto px-6 py-24 text-center">
+      <h2 class="font-display text-4xl md:text-5xl mb-6">Ready when you are.</h2>
+      <p class="text-lg text-[var(--color-brand-black)]/75 mb-8">
+        {totalSkills} skills, MIT licensed, install in under a minute.
+      </p>
+      <div class="max-w-xl mx-auto">
+        <InstallSnippet
+          command="npx skills add guyaga/marketing-skills"
+        />
+      </div>
+    </div>
+  </section>
+</BrandLayout>

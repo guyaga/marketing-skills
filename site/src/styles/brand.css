@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-black: #111111;
+  --color-brand-grid: #1d1d1d;
+  --color-brand-red: #e63b2e;
+  --color-brand-beige: #e8e4dd;
+  --color-brand-paper: #f5f3ee;
+  --color-brand-muted: #c0bcb5;
+  --color-brand-rule: #d8d4cc;
+
+  --font-display: Georgia, "Times New Roman", "DejaVu Serif", serif;
+  --font-body: Calibri, "Helvetica Neue", "Segoe UI", "DejaVu Sans", system-ui, sans-serif;
+  --font-mono: Consolas, Menlo, "DejaVu Sans Mono", monospace;
+}
+
+@layer base {
+  html {
+    background: var(--color-brand-paper);
+    color: var(--color-brand-black);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-body);
+  }
+
+  ::selection {
+    background: var(--color-brand-red);
+    color: var(--color-brand-paper);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  /* Prose styling for SKILL.md bodies */
+  .prose-skill h1 { font-size: 2.25rem; line-height: 1.1; margin-top: 2rem; margin-bottom: 1rem; }
+  .prose-skill h2 { font-size: 1.5rem; line-height: 1.2; margin-top: 2.5rem; margin-bottom: 0.75rem; padding-top: 1.25rem; border-top: 1px solid var(--color-brand-rule); }
+  .prose-skill h3 { font-size: 1.125rem; line-height: 1.3; margin-top: 1.75rem; margin-bottom: 0.5rem; font-family: var(--font-body); font-weight: 700; }
+  .prose-skill p, .prose-skill ul, .prose-skill ol, .prose-skill blockquote, .prose-skill pre, .prose-skill table { margin-bottom: 1rem; }
+  .prose-skill p, .prose-skill li { line-height: 1.65; font-size: 1.0625rem; }
+  .prose-skill ul { padding-left: 1.25rem; list-style: disc; }
+  .prose-skill ol { padding-left: 1.25rem; list-style: decimal; }
+  .prose-skill li { margin-bottom: 0.35rem; }
+  .prose-skill code { font-family: var(--font-mono); font-size: 0.92em; background: var(--color-brand-beige); padding: 0.1em 0.35em; border-radius: 2px; }
+  .prose-skill pre { background: var(--color-brand-black); color: var(--color-brand-paper); padding: 1rem 1.25rem; border-radius: 0; overflow-x: auto; font-size: 0.9rem; }
+  .prose-skill pre code { background: transparent; color: inherit; padding: 0; }
+  .prose-skill a { color: var(--color-brand-red); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .prose-skill blockquote { border-left: 3px solid var(--color-brand-red); padding-left: 1rem; color: #444; font-style: italic; }
+  .prose-skill table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  .prose-skill th, .prose-skill td { border: 1px solid var(--color-brand-rule); padding: 0.5rem 0.75rem; text-align: left; }
+  .prose-skill th { background: var(--color-brand-beige); font-weight: 700; }
+  .prose-skill hr { border: 0; border-top: 1px solid var(--color-brand-rule); margin: 2rem 0; }
+}
+
+@utility bg-grid-dark {
+  background-color: var(--color-brand-black);
+  background-image:
+    linear-gradient(to right, var(--color-brand-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-brand-grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+
+@utility bg-grid-light {
+  background-color: var(--color-brand-paper);
+  background-image:
+    linear-gradient(to right, var(--color-brand-rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-brand-rule) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}

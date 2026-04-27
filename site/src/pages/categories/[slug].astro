@@ -1,0 +1,52 @@
+---
+import BrandLayout from "../../layouts/BrandLayout.astro";
+import SkillCard from "../../components/SkillCard.astro";
+import { categories, categoryBySlug } from "../../data/categories";
+import { skillsByCategory } from "../../data/skills-meta";
+
+export async function getStaticPaths() {
+  return categories.map((c) => ({ params: { slug: c.slug }, props: { slug: c.slug } }));
+}
+
+const { slug } = Astro.props;
+const cat = categoryBySlug.get(slug)!;
+const skills = skillsByCategory(slug);
+---
+
+<BrandLayout title={cat.name} description={cat.description}>
+  <section class="bg-[var(--color-brand-paper)]">
+    <header class="border-b border-[var(--color-brand-rule)]">
+      <div class="max-w-6xl mx-auto px-6 pt-16 pb-10">
+        <nav class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-6 flex gap-2">
+          <a href="/" class="hover:text-[var(--color-brand-red)]">Home</a>
+          <span>/</span>
+          <a href="/skills/" class="hover:text-[var(--color-brand-red)]">Categories</a>
+        </nav>
+
+        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-3">
+          Category · {skills.length} skills
+        </div>
+        <h1 class="font-display text-5xl md:text-6xl tracking-tight leading-[1.05] mb-6">{cat.name}</h1>
+        <p class="text-lg text-[var(--color-brand-black)]/75 max-w-3xl">{cat.description}</p>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {skills.map((s) => <SkillCard skill={s} />)}
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 pb-16 border-t border-[var(--color-brand-rule)] pt-10">
+      <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-4">Other categories</div>
+      <div class="flex flex-wrap gap-2">
+        {categories.filter((c) => c.slug !== slug).map((c) => (
+          <a
+            href={`/categories/${c.slug}/`}
+            class="font-mono text-[10px] tracking-[0.2em] uppercase border border-[var(--color-brand-rule)] hover:border-[var(--color-brand-black)] hover:text-[var(--color-brand-red)] px-3 py-1.5 transition-colors"
+          >{c.name}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BrandLayout>

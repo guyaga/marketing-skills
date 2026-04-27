@@ -1,0 +1,22 @@
+{
+  "name": "guyaga-marketing-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Marketing skills for AI agents, in Guy Aga's voice. Hub site + Claude Code plugin.",
+  "homepage": "https://marketing-skills.guyaga.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guyaga/marketing-skills.git"
+  },
+  "license": "MIT",
+  "author": "Guy Aga <guy@aga.digital> (https://guyaga.ai)",
+  "workspaces": [
+    "site"
+  ],
+  "scripts": {
+    "dev": "npm --workspace site run dev",
+    "build": "npm --workspace site run build",
+    "preview": "npm --workspace site run preview",
+    "rewrite-descriptions": "node tools/rewrite-descriptions.mjs"
+  }
+}

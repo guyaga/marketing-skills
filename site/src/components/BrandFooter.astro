@@ -1,0 +1,44 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-grid-dark text-[var(--color-brand-paper)] mt-24">
+  <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-10">
+    <div>
+      <div class="flex items-baseline gap-3">
+        <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)]">guyaga</span>
+        <span class="font-display text-xl">marketing skills</span>
+      </div>
+      <p class="mt-4 text-sm text-[var(--color-brand-muted)] leading-relaxed">
+        40 marketing skills for AI agents, in Guy Aga's voice. Built for technical marketers, founders, and operators who want their agent to actually ship work.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-4">Project</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="/skills/" class="hover:text-[var(--color-brand-red)] transition-colors">All skills</a></li>
+        <li><a href="/install/" class="hover:text-[var(--color-brand-red)] transition-colors">Install</a></li>
+        <li><a href="https://github.com/guyaga/marketing-skills" rel="noopener" class="hover:text-[var(--color-brand-red)] transition-colors">GitHub</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-4">Built by</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="https://guyaga.ai" rel="noopener" class="hover:text-[var(--color-brand-red)] transition-colors">guyaga.ai</a></li>
+        <li><a href="https://bestguy.ai" rel="noopener" class="hover:text-[var(--color-brand-red)] transition-colors">bestguy.ai</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-[var(--color-brand-grid)]">
+    <div class="max-w-6xl mx-auto px-6 py-6 text-xs text-[var(--color-brand-muted)] flex flex-col md:flex-row justify-between gap-3">
+      <span>© {year} Guy Aga. MIT licensed.</span>
+      <span>
+        Adapted with attribution from
+        <a href="https://github.com/coreyhaines31/marketingskills" rel="noopener" class="underline hover:text-[var(--color-brand-paper)]">Corey Haines' marketing-skills</a>.
+      </span>
+    </div>
+  </div>
+</footer>

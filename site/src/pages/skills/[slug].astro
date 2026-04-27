@@ -1,0 +1,96 @@
+---
+import { getCollection, render } from "astro:content";
+import BrandLayout from "../../layouts/BrandLayout.astro";
+import InstallSnippet from "../../components/InstallSnippet.astro";
+import CategoryBadge from "../../components/CategoryBadge.astro";
+import { skillsMeta, skillBySlug } from "../../data/skills-meta";
+import { categoryBySlug } from "../../data/categories";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("skills");
+  return skillsMeta.map((meta) => {
+    const entry = entries.find((e) => e.id === meta.slug);
+    if (!entry) {
+      throw new Error(`Missing SKILL.md for ${meta.slug}`);
+    }
+    return { params: { slug: meta.slug }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const meta = skillBySlug.get(entry.id)!;
+const cat = categoryBySlug.get(meta.category)!;
+const { Content } = await render(entry);
+
+const upstreamUrl = `https://github.com/guyaga/marketing-skills/blob/main/skills/${meta.slug}/SKILL.md`;
+const relatedSkills = skillsMeta
+  .filter((s) => s.category === meta.category && s.slug !== meta.slug)
+  .slice(0, 6);
+---
+
+<BrandLayout title={meta.name} description={meta.description}>
+  <article class="bg-[var(--color-brand-paper)]">
+    <header class="border-b border-[var(--color-brand-rule)]">
+      <div class="max-w-5xl mx-auto px-6 pt-12 pb-10">
+        <nav class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-6 flex gap-2">
+          <a href="/" class="hover:text-[var(--color-brand-red)]">Home</a>
+          <span>/</span>
+          <a href="/skills/" class="hover:text-[var(--color-brand-red)]">Skills</a>
+          <span>/</span>
+          <a href={`/categories/${cat.slug}/`} class="hover:text-[var(--color-brand-red)]">{cat.name}</a>
+        </nav>
+
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+          <h1 class="font-display text-4xl md:text-5xl tracking-tight leading-tight">{meta.name}</h1>
+          <CategoryBadge slug={meta.category} />
+        </div>
+        <p class="text-lg text-[var(--color-brand-black)]/75 max-w-3xl">
+          {meta.description}
+        </p>
+      </div>
+    </header>
+
+    <div class="max-w-5xl mx-auto px-6 py-12 grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-8 prose-skill">
+        <Content />
+      </div>
+
+      <aside class="lg:col-span-4 lg:sticky lg:top-6 lg:self-start space-y-8">
+        <div>
+          <InstallSnippet
+            label="Install all 40 skills"
+            command="npx skills add guyaga/marketing-skills"
+          />
+        </div>
+
+        <div class="border-t border-[var(--color-brand-rule)] pt-6 space-y-4">
+          <div>
+            <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-2">Skill ID</div>
+            <code class="font-mono text-sm">{meta.slug}</code>
+          </div>
+          <div>
+            <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-2">Source</div>
+            <a href={upstreamUrl} class="font-mono text-sm text-[var(--color-brand-red)] underline" rel="noopener">
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        {relatedSkills.length > 0 && (
+          <div class="border-t border-[var(--color-brand-rule)] pt-6">
+            <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-3">More in {cat.name}</div>
+            <ul class="space-y-2">
+              {relatedSkills.map((s) => (
+                <li>
+                  <a href={`/skills/${s.slug}/`} class="text-sm hover:text-[var(--color-brand-red)] transition-colors">
+                    {s.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </aside>
+    </div>
+  </article>
+</BrandLayout>

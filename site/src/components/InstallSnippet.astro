@@ -1,0 +1,50 @@
+---
+interface Props {
+  command: string;
+  label?: string;
+  variant?: "light" | "dark";
+}
+
+const { command, label, variant = "light" } = Astro.props;
+const id = `cmd-${Math.random().toString(36).slice(2, 9)}`;
+
+const wrapCls =
+  variant === "dark"
+    ? "bg-[var(--color-brand-paper)] text-[var(--color-brand-black)]"
+    : "bg-[var(--color-brand-black)] text-[var(--color-brand-paper)]";
+---
+
+<div class="install-snippet">
+  {label && (
+    <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-2">
+      {label}
+    </div>
+  )}
+  <div class={`flex items-center justify-between gap-3 px-4 py-3 ${wrapCls}`}>
+    <code id={id} class="font-mono text-sm overflow-x-auto whitespace-nowrap flex-1">{command}</code>
+    <button
+      type="button"
+      data-target={id}
+      class="copy-btn font-mono text-[10px] tracking-[0.2em] uppercase border border-current px-2 py-1 hover:bg-[var(--color-brand-red)] hover:border-[var(--color-brand-red)] hover:text-[var(--color-brand-paper)] transition-colors whitespace-nowrap"
+    >Copy</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.target;
+      if (!id) return;
+      const codeEl = document.getElementById(id);
+      if (!codeEl) return;
+      try {
+        await navigator.clipboard.writeText(codeEl.textContent ?? "");
+        const original = btn.textContent;
+        btn.textContent = "Copied";
+        setTimeout(() => (btn.textContent = original), 1400);
+      } catch {
+        /* noop */
+      }
+    });
+  });
+</script>

@@ -1,0 +1,29 @@
+---
+const path = Astro.url.pathname;
+const isActive = (prefix: string) =>
+  prefix === "/" ? path === "/" : path === prefix || path.startsWith(prefix + "/");
+---
+
+<header class="border-b border-[var(--color-brand-rule)] bg-[var(--color-brand-paper)]">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-baseline gap-3 group">
+      <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)]">guyaga</span>
+      <span class="font-display text-xl text-[var(--color-brand-black)] group-hover:text-[var(--color-brand-red)] transition-colors">marketing skills</span>
+    </a>
+    <nav class="flex items-center gap-7 text-sm">
+      <a
+        href="/skills/"
+        class={`hover:text-[var(--color-brand-red)] transition-colors ${isActive("/skills") ? "text-[var(--color-brand-red)]" : "text-[var(--color-brand-black)]"}`}
+      >Skills</a>
+      <a
+        href="/install/"
+        class={`hover:text-[var(--color-brand-red)] transition-colors ${isActive("/install") ? "text-[var(--color-brand-red)]" : "text-[var(--color-brand-black)]"}`}
+      >Install</a>
+      <a
+        href="https://github.com/guyaga/marketing-skills"
+        rel="noopener"
+        class="font-mono text-xs tracking-wider uppercase text-[var(--color-brand-black)] border border-[var(--color-brand-black)] px-3 py-1.5 hover:bg-[var(--color-brand-black)] hover:text-[var(--color-brand-paper)] transition-colors"
+      >GitHub</a>
+    </nav>
+  </div>
+</header>
