@@ -15,6 +15,13 @@ export const skillsMeta: SkillMeta[] = [
       "Set up the context document every other skill reads first. Audience, positioning, voice, what you sell, who you sell to.",
     category: "foundation",
   },
+  {
+    slug: "brand-voice",
+    name: "Brand Voice",
+    description:
+      "Define and maintain a voice that is recognizable across channels and resistant to AI-generic drift. Principles, banned words, voice variants by audience.",
+    category: "foundation",
+  },
 
   {
     slug: "form-cro",
@@ -113,6 +120,13 @@ export const skillsMeta: SkillMeta[] = [
     name: "Video",
     description:
       "Plan, script, and produce marketing videos. Hook, structure, b-roll, cuts, captions.",
+    category: "content-copy",
+  },
+  {
+    slug: "content-distribution",
+    name: "Content Distribution",
+    description:
+      "Make sure good content reaches the audience it was made for. Owned, earned, paid. PR, podcasts, syndication, repurposing.",
     category: "content-copy",
   },
 
@@ -223,6 +237,20 @@ export const skillsMeta: SkillMeta[] = [
       "Decide pricing tiers, packaging, and monetization model. Anchor, contrast, willingness-to-pay.",
     category: "strategy",
   },
+  {
+    slug: "customer-segmentation",
+    name: "Customer Segmentation",
+    description:
+      "Split your customer base into segments that actually drive decisions. Behavior, lifecycle, value, ICP, cohorts, power users.",
+    category: "strategy",
+  },
+  {
+    slug: "market-sizing",
+    name: "Market Sizing",
+    description:
+      "Build a defensible TAM/SAM/SOM model. Bottom-up, top-down, value-based, triangulated, sourced. Survives a VC cross-examination.",
+    category: "strategy",
+  },
 
   {
     slug: "churn-prevention",
@@ -267,6 +295,13 @@ export const skillsMeta: SkillMeta[] = [
       "Design referral and affiliate programs with the right share, the right reward, and the right friction.",
     category: "growth-engineering",
   },
+  {
+    slug: "marketing-automation",
+    name: "Marketing Automation",
+    description:
+      "Architect the marketing stack. CRM, ESP, ads, warehouse, CDP, reverse ETL. Workflows that scale without becoming Frankenstein.",
+    category: "growth-engineering",
+  },
 
   {
     slug: "revops",
@@ -282,6 +317,20 @@ export const skillsMeta: SkillMeta[] = [
       "Build pitch decks, one-pagers, and objection-handling docs sales actually uses.",
     category: "sales-revops",
   },
+  {
+    slug: "win-loss-analysis",
+    name: "Win/Loss Analysis",
+    description:
+      "Interview won and lost deals systematically. Extract why buyers chose you, why they did not, and what to fix in positioning, copy, and sales.",
+    category: "sales-revops",
+  },
+  {
+    slug: "sales-asset-iteration",
+    name: "Sales Asset Iteration",
+    description:
+      "Test and measure pitch decks, demo scripts, objection docs, ROI calcs. Build assets reps actually use, prove they move close rate.",
+    category: "sales-revops",
+  },
 
   {
     slug: "ab-test-setup",
@@ -295,6 +344,13 @@ export const skillsMeta: SkillMeta[] = [
     name: "Analytics Tracking",
     description:
       "Audit and fix event tracking. Make sure every signup, click, and purchase fires once and lands in the right place.",
+    category: "measurement",
+  },
+  {
+    slug: "marketing-attribution",
+    name: "Marketing Attribution",
+    description:
+      "Figure out which channels actually drive revenue. Multi-touch, MMM, CAC by channel, payback period, LTV/CAC, the quarterly attribution audit.",
     category: "measurement",
   },
 ];

@@ -1,6 +1,6 @@
 # Marketing Skills
 
-40 marketing skills for AI agents, in Guy Aga's voice.
+48 marketing skills for AI agents, in Guy Aga's voice.
 
 CRO, copywriting, SEO, paid ads, retention, growth engineering. One install command and the whole library lands in Claude Code, Cursor, and Codex. Then your agent runs them like a marketer would.
 
@@ -8,20 +8,20 @@ Hub: [marketing-skills.guyaga.ai](https://marketing-skills.guyaga.ai)
 
 ## What you get
 
-40 skills across 10 categories:
+48 skills across 10 categories:
 
 | Category | Skills |
 | --- | --- |
-| Foundation | product-marketing-context |
+| Foundation | product-marketing-context, brand-voice |
 | Conversion Optimization | form-cro, onboarding-cro, page-cro, paywall-upgrade-cro, popup-cro, signup-flow-cro |
-| Content & Copy | cold-email, content-strategy, copy-editing, copywriting, email-sequence, image, social-content, video |
+| Content & Copy | cold-email, content-strategy, copy-editing, copywriting, email-sequence, image, social-content, video, content-distribution |
 | SEO & Discovery | ai-seo, aso-audit, competitor-alternatives, programmatic-seo, schema-markup, seo-audit, site-architecture |
 | Paid Distribution | ad-creative, paid-ads |
-| Strategy | competitor-profiling, customer-research, launch-strategy, marketing-ideas, marketing-psychology, pricing-strategy |
+| Strategy | competitor-profiling, customer-research, launch-strategy, marketing-ideas, marketing-psychology, pricing-strategy, customer-segmentation, market-sizing |
 | Retention | churn-prevention |
-| Growth Engineering | community-marketing, directory-submissions, free-tool-strategy, lead-magnets, referral-program |
-| Sales & RevOps | revops, sales-enablement |
-| Measurement | ab-test-setup, analytics-tracking |
+| Growth Engineering | community-marketing, directory-submissions, free-tool-strategy, lead-magnets, referral-program, marketing-automation |
+| Sales & RevOps | revops, sales-enablement, win-loss-analysis, sales-asset-iteration |
+| Measurement | ab-test-setup, analytics-tracking, marketing-attribution |
 
 Every skill is a structured prompt the agent runs end to end. `product-marketing-context` runs first and every other skill reads it.
 
@@ -96,7 +96,7 @@ Then ask the agent to do anything:
 ```
 .
 ├── .claude-plugin/         Plugin manifest for Claude Code
-├── skills/                 40 skill folders, each with a SKILL.md
+├── skills/                 48 skill folders, each with a SKILL.md
 ├── site/                   Astro hub at marketing-skills.guyaga.ai
 ├── tools/                  CLI integrations and helpers (from upstream)
 ├── LICENSE                 MIT
