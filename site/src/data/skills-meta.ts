@@ -70,7 +70,7 @@ export const skillsMeta: SkillMeta[] = [
     slug: "cold-email",
     name: "Cold Email",
     description:
-      "Write B2B cold outreach that gets replies. Subject lines, opens, follow-up cadence, anti-spam basics.",
+      "Run outbound that gets replies. Reply Method, Agoge sequence, deliverability infrastructure (SPF/DKIM/DMARC), warm-up, list quality. 2026 benchmarks built in.",
     category: "content-copy",
   },
   {
@@ -105,7 +105,7 @@ export const skillsMeta: SkillMeta[] = [
     slug: "image",
     name: "Image",
     description:
-      "Generate marketing images. Heroes, ad creative, social cards, OG images, brand-consistent and fast.",
+      "Make images that convert and load fast. Image-by-purpose specs, brand-consistent AI generation, Core Web Vitals, accessibility done right.",
     category: "content-copy",
   },
   {
@@ -162,7 +162,7 @@ export const skillsMeta: SkillMeta[] = [
     slug: "schema-markup",
     name: "Schema Markup",
     description:
-      "Add structured data so search engines and LLMs understand your pages. FAQ, product, article, organization.",
+      "Add structured data that captures Google rich results and feeds AI search. JSON-LD only, validation pipeline, GSC monitoring, post-2023 deprecations factored in.",
     category: "seo-discovery",
   },
   {
@@ -220,7 +220,7 @@ export const skillsMeta: SkillMeta[] = [
     slug: "marketing-ideas",
     name: "Marketing Ideas",
     description:
-      "Pull from 140+ vetted SaaS marketing strategies and pick the few that fit your stage.",
+      "30 vetted growth tactics with case studies, ROI, stage-fit. Bullseye over buffet. Pick the 1-3 that compound for your stage; ignore the rest.",
     category: "strategy",
   },
   {
@@ -292,7 +292,7 @@ export const skillsMeta: SkillMeta[] = [
     slug: "referral-program",
     name: "Referral Program",
     description:
-      "Design referral and affiliate programs with the right share, the right reward, and the right friction.",
+      "Design referral programs that beat paid CAC. Viral coefficient math, double-sided incentives, eight named case studies (Dropbox, PayPal, Tesla, Morning Brew), fraud detection.",
     category: "growth-engineering",
   },
   {
