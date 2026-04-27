@@ -12,54 +12,54 @@ import { skillsMeta } from "../data/skills-meta";
   description="The ten specialists in your AI marketing team — Brand Lead, Conversion Specialist, Copy Chief, SEO Lead, Media Buyer, Strategist, Customer Success Lead, Growth Engineer, Operator, Analyst."
 >
   <!-- HERO -->
-  <section class="bg-grid-dark text-[var(--color-brand-paper)]">
-    <div class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+  <section class="bg-grid-dark text-[var(--color-ink-primary)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 pt-24 pb-20">
       <div class="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--color-brand-red)] mb-6">
         Ten specialists · {skillsMeta.length} skills
       </div>
-      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05] max-w-4xl">
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05] max-w-4xl text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">
         {story.hookHeadline}
       </h1>
-      <p class="mt-8 text-lg text-[var(--color-brand-beige)] max-w-3xl leading-relaxed">
+      <p class="mt-8 text-lg text-[var(--color-ink-secondary)] max-w-3xl leading-relaxed">
         {story.hookSub}
       </p>
     </div>
   </section>
 
   <!-- ORIGIN STORY -->
-  <section class="bg-[var(--color-brand-beige)]">
-    <div class="max-w-4xl mx-auto px-6 py-20">
-      <h2 class="font-display text-3xl md:text-4xl mb-8">{story.origin.title}</h2>
-      <div class="space-y-5 text-[17px] leading-relaxed text-[var(--color-brand-black)]/85">
+  <section class="bg-[var(--color-bg-deeper)] border-y border-[var(--color-rule)]">
+    <div class="max-w-4xl mx-auto px-6 md:px-10 py-24">
+      <h2 class="font-display text-3xl md:text-4xl mb-10 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;">{story.origin.title}</h2>
+      <div class="space-y-5 text-[17px] leading-relaxed text-[var(--color-ink-primary)]/90">
         {story.origin.body.map((para) => <p>{para}</p>)}
       </div>
     </div>
   </section>
 
   <!-- TEAM ROSTER -->
-  <section class="bg-[var(--color-brand-paper)]">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <div class="border-b border-[var(--color-brand-rule)] pb-4 mb-12">
-        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-2">The roster</div>
-        <h2 class="font-display text-3xl md:text-4xl">Ten specialists, one team.</h2>
+  <section class="bg-[var(--color-bg-base)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24">
+      <div class="border-b border-[var(--color-rule)] pb-4 mb-16">
+        <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-2">The roster</div>
+        <h2 class="font-display text-3xl md:text-4xl text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;">Ten specialists, one team.</h2>
       </div>
-      <div class="space-y-12">
+      <div class="space-y-16">
         {personas.map((p) => <PersonaCard persona={p} variant="full" />)}
       </div>
     </div>
   </section>
 
   <!-- PHILOSOPHY -->
-  <section class="bg-grid-dark text-[var(--color-brand-paper)]">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-2">How the team works</div>
-      <h2 class="font-display text-3xl md:text-4xl mb-12 max-w-3xl">Four principles the team operates by.</h2>
-      <div class="grid md:grid-cols-2 gap-8">
+  <section class="bg-grid-dark text-[var(--color-ink-primary)] border-t border-[var(--color-rule)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24">
+      <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-2">How the team works</div>
+      <h2 class="font-display text-3xl md:text-4xl mb-16 max-w-3xl text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;">Four principles the team operates by.</h2>
+      <div class="grid md:grid-cols-2 gap-12">
         {story.philosophyPoints.map((pt, i) => (
-          <div class="border-t border-[var(--color-brand-grid)] pt-6">
-            <div class="font-mono text-3xl text-[var(--color-brand-red)] mb-3">{String(i + 1).padStart(2, "0")}</div>
-            <h3 class="font-display text-2xl mb-3">{pt.title}</h3>
-            <p class="text-[15px] leading-relaxed text-[var(--color-brand-beige)]">{pt.body}</p>
+          <div class="border-t border-[var(--color-rule)] pt-7">
+            <div class="font-mono text-3xl text-[var(--color-brand-red)] mb-4">{String(i + 1).padStart(2, "0")}</div>
+            <h3 class="font-display text-2xl mb-4 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50;">{pt.title}</h3>
+            <p class="text-[15px] leading-relaxed text-[var(--color-ink-secondary)]">{pt.body}</p>
           </div>
         ))}
       </div>
@@ -67,10 +67,10 @@ import { skillsMeta } from "../data/skills-meta";
   </section>
 
   <!-- CTA -->
-  <section class="bg-[var(--color-brand-paper)]">
-    <div class="max-w-3xl mx-auto px-6 py-20 text-center">
-      <h2 class="font-display text-4xl md:text-5xl mb-6">{story.installPromise.headline}</h2>
-      <p class="text-lg text-[var(--color-brand-black)]/75 mb-8">{story.installPromise.body}</p>
+  <section class="bg-[var(--color-bg-base)]">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 py-24 text-center">
+      <h2 class="font-display text-4xl md:text-5xl mb-6 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">{story.installPromise.headline}</h2>
+      <p class="text-lg text-[var(--color-ink-secondary)] mb-8">{story.installPromise.body}</p>
       <div class="max-w-xl mx-auto">
         <InstallSnippet command="npx skills add guyaga/marketing-skills" />
       </div>

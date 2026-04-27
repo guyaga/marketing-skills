@@ -9,16 +9,11 @@ interface Props {
 const { slug, variant = "default" } = Astro.props;
 const cat = categoryBySlug.get(slug);
 if (!cat) throw new Error(`Unknown category: ${slug}`);
-
-const cls =
-  variant === "dark"
-    ? "border-[var(--color-brand-muted)] text-[var(--color-brand-muted)] hover:border-[var(--color-brand-red)] hover:text-[var(--color-brand-red)]"
-    : "border-[var(--color-brand-black)] text-[var(--color-brand-black)] hover:border-[var(--color-brand-red)] hover:text-[var(--color-brand-red)]";
 ---
 
 <a
   href={`/categories/${cat.slug}/`}
-  class={`inline-block font-mono text-[10px] tracking-[0.2em] uppercase border px-2 py-1 transition-colors ${cls}`}
+  class="group inline-block font-mono text-[10px] tracking-[0.22em] uppercase border px-2.5 py-1 transition-colors duration-200 border-[var(--color-rule)] text-[var(--color-ink-secondary)] hover:border-[var(--color-brand-red)] hover:text-[var(--color-brand-red)]"
 >
   {cat.name}
 </a>

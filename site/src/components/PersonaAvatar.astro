@@ -3,17 +3,19 @@ import type { Persona } from "../data/personas";
 
 interface Props {
   persona: Persona;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl" | "hero";
   link?: boolean;
+  breathe?: boolean;
 }
 
-const { persona, size = "md", link = true } = Astro.props;
+const { persona, size = "md", link = true, breathe = false } = Astro.props;
 
 const sizeMap = {
   sm: "w-12 h-12",
   md: "w-20 h-20",
   lg: "w-32 h-32",
   xl: "w-48 h-48",
+  hero: "w-72 h-72 md:w-96 md:h-96",
 };
 const sizeCls = sizeMap[size];
 
@@ -22,14 +24,25 @@ const tagProps = link ? { href: `/categories/${persona.category}/` } : {};
 ---
 
 <Tag {...tagProps} class="persona-avatar inline-block group">
-  <div class={`${sizeCls} relative bg-[var(--color-brand-beige)] border border-[var(--color-brand-rule)] overflow-hidden`}>
+  <div class={`${sizeCls} relative bg-[var(--color-bg-deeper)] border border-[var(--color-rule)] overflow-hidden ${breathe ? "persona-breathe" : ""}`}>
     <img
       src={`/avatars/${persona.avatarSlug}.png`}
       alt={`${persona.name}, ${persona.role}`}
       loading="lazy"
       decoding="async"
-      class="w-full h-full object-cover grayscale-[0.05] group-hover:grayscale-0 transition-all duration-300"
+      class="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
       onerror="this.style.opacity='0.15';this.style.filter='blur(0.5px)'"
     />
+    <span class="pointer-events-none absolute inset-0 ring-1 ring-[var(--color-brand-red)]/0 group-hover:ring-[var(--color-brand-red)]/40 transition-all duration-300"></span>
   </div>
 </Tag>
+
+<style>
+  .persona-breathe img {
+    animation: breathe 4.5s ease-in-out infinite;
+    will-change: filter;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .persona-breathe img { animation: none; }
+  }
+</style>

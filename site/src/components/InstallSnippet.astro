@@ -2,31 +2,26 @@
 interface Props {
   command: string;
   label?: string;
-  variant?: "light" | "dark";
+  variant?: "primary" | "muted" | "deep";
 }
 
-const { command, label, variant = "light" } = Astro.props;
+const { command, label, variant = "primary" } = Astro.props;
 const id = `cmd-${Math.random().toString(36).slice(2, 9)}`;
 
-const wrapCls =
-  variant === "dark"
-    ? "bg-[var(--color-brand-paper)] text-[var(--color-brand-black)]"
-    : "bg-[var(--color-brand-black)] text-[var(--color-brand-paper)]";
+const variantCls = {
+  primary: "bg-[var(--color-bg-elev-1)] border-[var(--color-rule)] text-[var(--color-ink-primary)]",
+  muted: "bg-[var(--color-bg-base)] border-[var(--color-rule)] text-[var(--color-ink-secondary)]",
+  deep: "bg-[var(--color-bg-deeper)] border-[var(--color-rule)] text-[var(--color-ink-primary)]",
+}[variant];
 ---
 
 <div class="install-snippet">
   {label && (
-    <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-2">
-      {label}
-    </div>
+    <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-2">{label}</div>
   )}
-  <div class={`flex items-center justify-between gap-3 px-4 py-3 ${wrapCls}`}>
-    <code id={id} class="font-mono text-sm overflow-x-auto whitespace-nowrap flex-1">{command}</code>
-    <button
-      type="button"
-      data-target={id}
-      class="copy-btn font-mono text-[10px] tracking-[0.2em] uppercase border border-current px-2 py-1 hover:bg-[var(--color-brand-red)] hover:border-[var(--color-brand-red)] hover:text-[var(--color-brand-paper)] transition-colors whitespace-nowrap"
-    >Copy</button>
+  <div class={`flex items-center justify-between gap-3 px-4 py-3 border ${variantCls} liquid-edge transition-colors duration-200 hover:border-[var(--color-rule-strong)]`}>
+    <code id={id} class="font-mono text-[13px] overflow-x-auto whitespace-nowrap flex-1">{command}</code>
+    <button type="button" data-target={id} class="copy-btn font-mono text-[10px] tracking-[0.22em] uppercase border border-[var(--color-rule-strong)] text-[var(--color-ink-primary)] px-2.5 py-1 hover:bg-[var(--color-brand-red)] hover:border-[var(--color-brand-red)] hover:text-[var(--color-ink-primary)] active:scale-[0.95] transition-all duration-150 whitespace-nowrap">Copy</button>
   </div>
 </div>
 
@@ -40,8 +35,12 @@ const wrapCls =
       try {
         await navigator.clipboard.writeText(codeEl.textContent ?? "");
         const original = btn.textContent;
-        btn.textContent = "Copied";
-        setTimeout(() => (btn.textContent = original), 1400);
+        btn.textContent = "✓ Copied";
+        btn.style.color = "var(--color-brand-red)";
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.style.color = "";
+        }, 1400);
       } catch {
         /* noop */
       }

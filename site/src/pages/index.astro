@@ -14,51 +14,45 @@ const skillsPerCategory = (slug: string) =>
 
 <BrandLayout title="Marketing Skills">
   <!-- HERO -->
-  <section class="bg-grid-dark text-[var(--color-brand-paper)]">
-    <div class="max-w-6xl mx-auto px-6 pt-24 pb-32 grid lg:grid-cols-12 gap-12 items-end">
+  <section class="bg-grid-dark text-[var(--color-ink-primary)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 pt-24 pb-32 grid lg:grid-cols-12 gap-12 items-end">
       <div class="lg:col-span-8">
         <div class="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--color-brand-red)] mb-6">
           Marketing skills · v0.1
         </div>
-        <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
+        <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">
           Your AI marketing team.<br />
           {totalSpecialists} specialists. One install.
         </h1>
-        <p class="mt-8 text-lg text-[var(--color-brand-beige)] max-w-2xl leading-relaxed">
+        <p class="mt-8 text-lg text-[var(--color-ink-secondary)] max-w-2xl leading-relaxed">
           {totalSkills} skills, organized by role. The Conversion Specialist owns CRO. The Strategist owns positioning. The Media Buyer owns paid. You ask the question, the right specialist steps in. One command drops the whole team into Claude Code, Cursor, and Codex.
         </p>
         <div class="mt-10 max-w-xl">
           <InstallSnippet
             label="Install (recommended)"
             command="npx skills add guyaga/marketing-skills"
-            variant="dark"
+            variant="deep"
           />
         </div>
         <div class="mt-6 flex gap-4 text-sm">
-          <a href="/skills/" class="font-mono text-xs tracking-[0.2em] uppercase border border-[var(--color-brand-paper)] px-4 py-2 hover:bg-[var(--color-brand-paper)] hover:text-[var(--color-brand-black)] transition-colors">
+          <a href="/skills/" class="font-mono text-xs tracking-[0.22em] uppercase border border-[var(--color-rule-strong)] text-[var(--color-ink-primary)] px-4 py-2 hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-bg-base)] hover:border-[var(--color-ink-primary)] transition-all duration-200 active:scale-[0.97]">
             Browse {totalSkills} skills →
           </a>
-          <a href="/install/" class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--color-brand-muted)] px-4 py-2 hover:text-[var(--color-brand-red)] transition-colors">
+          <a href="/install/" class="font-mono text-xs tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] px-4 py-2 hover:text-[var(--color-brand-red)] transition-colors duration-200">
             Other install methods
           </a>
         </div>
       </div>
 
-      <div class="lg:col-span-4 lg:pl-8 lg:border-l border-[var(--color-brand-grid)] hidden lg:block">
-        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-4">
+      <div class="lg:col-span-4 lg:pl-8 lg:border-l border-[var(--color-rule)] hidden lg:block">
+        <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-4">
           What it covers
         </div>
-        <ul class="space-y-3 text-sm text-[var(--color-brand-beige)]">
-          {categories.slice(0, 5).map((c) => (
-            <li class="flex justify-between border-b border-[var(--color-brand-grid)] pb-2">
+        <ul class="space-y-3 text-sm text-[var(--color-ink-secondary)]">
+          {categories.map((c) => (
+            <li class="flex justify-between border-b border-[var(--color-rule)] pb-2">
               <span>{c.name}</span>
-              <span class="font-mono text-[var(--color-brand-muted)]">{skillsPerCategory(c.slug).toString().padStart(2, "0")}</span>
-            </li>
-          ))}
-          {categories.slice(5).map((c) => (
-            <li class="flex justify-between border-b border-[var(--color-brand-grid)] pb-2">
-              <span>{c.name}</span>
-              <span class="font-mono text-[var(--color-brand-muted)]">{skillsPerCategory(c.slug).toString().padStart(2, "0")}</span>
+              <span class="font-mono text-[var(--color-ink-tertiary)]">{skillsPerCategory(c.slug).toString().padStart(2, "0")}</span>
             </li>
           ))}
         </ul>
@@ -67,28 +61,25 @@ const skillsPerCategory = (slug: string) =>
   </section>
 
   <!-- TEAM ROSTER STRIP -->
-  <section class="bg-[var(--color-brand-paper)] border-b border-[var(--color-brand-rule)]">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <div class="flex items-baseline justify-between mb-10 border-b border-[var(--color-brand-rule)] pb-4">
+  <section class="bg-[var(--color-bg-base)] border-b border-[var(--color-rule)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24">
+      <div class="flex items-baseline justify-between mb-12 border-b border-[var(--color-rule)] pb-4">
         <div>
-          <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-2">Meet the team</div>
-          <h2 class="font-display text-3xl md:text-4xl">Ten specialists, named and ready.</h2>
+          <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-2">Meet the team</div>
+          <h2 class="font-display text-3xl md:text-4xl text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;">Ten specialists, named and ready.</h2>
         </div>
-        <a href="/team/" class="font-mono text-[10px] tracking-[0.2em] uppercase hover:text-[var(--color-brand-red)] transition-colors">
+        <a href="/team/" class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-secondary)] hover:text-[var(--color-brand-red)] transition-colors duration-200">
           Read the full roster →
         </a>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
         {personas.map((p) => (
-          <a
-            href={`/categories/${p.category}/`}
-            class="group block text-center"
-          >
+          <a href={`/categories/${p.category}/`} class="group block text-center">
             <div class="mx-auto w-24 h-24 mb-3">
               <PersonaAvatar persona={p} size="lg" link={false} />
             </div>
-            <div class="font-display text-base text-[var(--color-brand-black)] group-hover:text-[var(--color-brand-red)] transition-colors">{p.name}</div>
-            <div class="font-mono text-[9px] tracking-[0.15em] uppercase text-[var(--color-brand-muted)] mt-1">{p.role}</div>
+            <div class="font-display text-base text-[var(--color-ink-primary)] group-hover:text-[var(--color-brand-red)] transition-colors duration-200">{p.name}</div>
+            <div class="font-mono text-[9px] tracking-[0.18em] uppercase text-[var(--color-ink-tertiary)] mt-1">{p.role}</div>
           </a>
         ))}
       </div>
@@ -96,30 +87,28 @@ const skillsPerCategory = (slug: string) =>
   </section>
 
   <!-- CATEGORIES -->
-  <section class="bg-[var(--color-brand-paper)]">
-    <div class="max-w-6xl mx-auto px-6 py-24">
-      <div class="flex items-baseline justify-between mb-12 border-b border-[var(--color-brand-rule)] pb-4">
-        <h2 class="font-display text-3xl md:text-4xl">Ten categories</h2>
-        <a href="/skills/" class="font-mono text-[10px] tracking-[0.2em] uppercase hover:text-[var(--color-brand-red)] transition-colors">
+  <section class="bg-[var(--color-bg-base)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24">
+      <div class="flex items-baseline justify-between mb-12 border-b border-[var(--color-rule)] pb-4">
+        <h2 class="font-display text-3xl md:text-4xl text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.02em;">Ten categories</h2>
+        <a href="/skills/" class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-secondary)] hover:text-[var(--color-brand-red)] transition-colors duration-200">
           See all {totalSkills} →
         </a>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6">
         {categories.map((c) => (
-          <a
-            href={`/categories/${c.slug}/`}
-            class="group block border border-[var(--color-brand-rule)] hover:border-[var(--color-brand-black)] transition-colors p-6"
-          >
+          <a href={`/categories/${c.slug}/`} class="group block relative border border-[var(--color-rule)] bg-[var(--color-bg-elev-1)] hover:border-[var(--color-rule-strong)] transition-all duration-200 p-7 overflow-hidden">
+            <span class="pointer-events-none absolute top-0 left-0 right-0 h-px bg-[var(--color-brand-red)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
             <div class="flex items-baseline justify-between mb-2">
-              <h3 class="font-display text-2xl text-[var(--color-brand-black)] group-hover:text-[var(--color-brand-red)] transition-colors">
+              <h3 class="font-display text-2xl text-[var(--color-ink-primary)] group-hover:text-[var(--color-brand-red)] transition-colors duration-200" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.015em;">
                 {c.name}
               </h3>
-              <span class="font-mono text-xs text-[var(--color-brand-muted)]">
+              <span class="font-mono text-xs text-[var(--color-ink-tertiary)]">
                 {skillsPerCategory(c.slug).toString().padStart(2, "0")} skills
               </span>
             </div>
-            <p class="text-sm text-[var(--color-brand-black)]/75 leading-relaxed">
+            <p class="text-sm text-[var(--color-ink-secondary)] leading-relaxed">
               {c.description}
             </p>
           </a>
@@ -129,27 +118,27 @@ const skillsPerCategory = (slug: string) =>
   </section>
 
   <!-- HOW IT WORKS -->
-  <section class="bg-[var(--color-brand-beige)]">
-    <div class="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-3 gap-10">
+  <section class="bg-[var(--color-bg-deeper)] border-y border-[var(--color-rule)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24 grid md:grid-cols-3 gap-12">
       <div>
-        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-3">01 · Install</div>
-        <h3 class="font-display text-xl mb-3">One command, all {totalSkills} skills.</h3>
-        <p class="text-sm leading-relaxed text-[var(--color-brand-black)]/80">
-          <code class="font-mono text-xs bg-[var(--color-brand-paper)] px-2 py-1">npx skills add guyaga/marketing-skills</code>
-          drops the skill files into <code class="font-mono text-xs bg-[var(--color-brand-paper)] px-2 py-1">.agents/skills/</code> and symlinks them for Claude Code.
+        <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-4">01 · Install</div>
+        <h3 class="font-display text-2xl mb-4 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50;">One command, all {totalSkills} skills.</h3>
+        <p class="text-sm leading-relaxed text-[var(--color-ink-secondary)]">
+          <code class="font-mono text-xs text-[var(--color-brand-warm)] bg-[var(--color-bg-elev-1)] border border-[var(--color-rule)] px-2 py-0.5">npx skills add guyaga/marketing-skills</code>
+          drops the skill files into <code class="font-mono text-xs text-[var(--color-brand-warm)] bg-[var(--color-bg-elev-1)] border border-[var(--color-rule)] px-2 py-0.5">.agents/skills/</code> and symlinks them for Claude Code.
         </p>
       </div>
       <div>
-        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-3">02 · Set context</div>
-        <h3 class="font-display text-xl mb-3">Run product-marketing-context first.</h3>
-        <p class="text-sm leading-relaxed text-[var(--color-brand-black)]/80">
+        <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-4">02 · Set context</div>
+        <h3 class="font-display text-2xl mb-4 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50;">Run product-marketing-context first.</h3>
+        <p class="text-sm leading-relaxed text-[var(--color-ink-secondary)]">
           Every other skill reads this document before it does anything. It is your audience, positioning, and voice in one place. The agent fills it in with you.
         </p>
       </div>
       <div>
-        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-3">03 · Ship work</div>
-        <h3 class="font-display text-xl mb-3">Then ask the agent to do anything.</h3>
-        <p class="text-sm leading-relaxed text-[var(--color-brand-black)]/80">
+        <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-4">03 · Ship work</div>
+        <h3 class="font-display text-2xl mb-4 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50;">Then ask the agent to do anything.</h3>
+        <p class="text-sm leading-relaxed text-[var(--color-ink-secondary)]">
           "Write a comparison page against [competitor]." "Audit my signup flow." "Plan our launch." Each skill is a structured prompt the agent runs end to end.
         </p>
       </div>
@@ -157,16 +146,14 @@ const skillsPerCategory = (slug: string) =>
   </section>
 
   <!-- CTA -->
-  <section class="bg-[var(--color-brand-paper)]">
-    <div class="max-w-3xl mx-auto px-6 py-24 text-center">
-      <h2 class="font-display text-4xl md:text-5xl mb-6">Ready when you are.</h2>
-      <p class="text-lg text-[var(--color-brand-black)]/75 mb-8">
+  <section class="bg-[var(--color-bg-base)]">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 py-24 text-center">
+      <h2 class="font-display text-4xl md:text-5xl mb-6 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">Ready when you are.</h2>
+      <p class="text-lg text-[var(--color-ink-secondary)] mb-8">
         {totalSkills} skills, MIT licensed, install in under a minute.
       </p>
       <div class="max-w-xl mx-auto">
-        <InstallSnippet
-          command="npx skills add guyaga/marketing-skills"
-        />
+        <InstallSnippet command="npx skills add guyaga/marketing-skills" />
       </div>
     </div>
   </section>

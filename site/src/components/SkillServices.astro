@@ -11,19 +11,14 @@ const services = servicesForSkill(slug);
 ---
 
 {services.length > 0 && (
-  <div class={variant === "sidebar" ? "" : "mt-6"}>
-    <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-muted)] mb-3">
+  <div class={variant === "sidebar" ? "border-t border-[var(--color-rule)] pt-6" : "mt-6"}>
+    <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-3">
       Services in this skill
     </div>
     <div class="flex flex-wrap gap-2">
       {services.map((s) => (
-        <a
-          href={s.url}
-          rel="noopener nofollow"
-          target="_blank"
-          class="font-mono text-[11px] tracking-wide border border-[var(--color-brand-rule)] bg-[var(--color-brand-paper)] hover:border-[var(--color-brand-red)] hover:text-[var(--color-brand-red)] px-2.5 py-1 transition-colors"
-        >
-          {s.name}<span class="ml-1 text-[var(--color-brand-muted)] group-hover:text-[var(--color-brand-red)]">↗</span>
+        <a href={s.url} rel="noopener nofollow" target="_blank" class="group font-mono text-[11px] tracking-[0.05em] border border-[var(--color-rule)] bg-[var(--color-bg-elev-1)] text-[var(--color-ink-secondary)] hover:border-[var(--color-brand-red)] hover:text-[var(--color-brand-red)] px-2.5 py-1 transition-colors duration-200">
+          {s.name}<span class="ml-1 text-[var(--color-ink-tertiary)] group-hover:text-[var(--color-brand-red)]">↗</span>
         </a>
       ))}
     </div>

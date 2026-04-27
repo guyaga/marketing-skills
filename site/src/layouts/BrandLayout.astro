@@ -15,7 +15,7 @@ const fullTitle = title === "Marketing Skills"
   : `${title} — Marketing Skills`;
 const desc =
   description ??
-  "48 marketing skills for AI agents. CRO, copy, SEO, paid, retention, growth, RevOps, measurement. One install, all 48 land in Claude Code, Cursor, and Codex.";
+  "48 marketing skills for AI agents. Ten specialists, one install. CRO, copy, SEO, paid, retention, growth — all in your editor.";
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
@@ -24,6 +24,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0e0e10" />
     <title>{fullTitle}</title>
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical} />
@@ -34,8 +35,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Editorial type stack: Fraunces (display) + Hanken Grotesk (body) + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..600,0..100,0..1&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap"
+    />
+
+    <!-- Astro view transitions for smooth page changes -->
+    <meta name="view-transition" content="same-origin" />
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-[100dvh] flex flex-col bg-[var(--color-bg-base)] text-[var(--color-ink-primary)] antialiased">
     <BrandHeader />
     <main class="flex-1">
       <slot />

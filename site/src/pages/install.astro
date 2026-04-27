@@ -3,83 +3,53 @@ import BrandLayout from "../layouts/BrandLayout.astro";
 import InstallSnippet from "../components/InstallSnippet.astro";
 
 const methods = [
-  {
-    n: "01",
-    title: "npx skills add (recommended)",
-    body: "The fastest path. Drops every skill into .agents/skills/ and symlinks them to .claude/skills/ so Claude Code picks them up immediately.",
-    command: "npx skills add guyaga/marketing-skills",
-  },
-  {
-    n: "02",
-    title: "Claude Code plugin",
-    body: "Install as a Claude Code plugin from inside the editor. Use this if you prefer Claude Code's native plugin manager.",
-    command: "/plugin add github:guyaga/marketing-skills",
-  },
-  {
-    n: "03",
-    title: "Clone and copy",
-    body: "Pull the repo and copy the skills folder into your project. Use this when you want full control or no installer in the loop.",
-    command: "git clone https://github.com/guyaga/marketing-skills.git && cp -r marketing-skills/skills .agents/",
-  },
-  {
-    n: "04",
-    title: "Git submodule",
-    body: "Add the repo as a submodule so you can pull updates with a single git command. Best for teams that want a tracked, pinned version.",
-    command: "git submodule add https://github.com/guyaga/marketing-skills.git .agents/marketing-skills",
-  },
-  {
-    n: "05",
-    title: "Fork and customize",
-    body: "Fork the repo on GitHub, edit the skills to fit your product and voice, then install your fork the same way you would install this one.",
-    command: "npx skills add YOUR-USERNAME/marketing-skills",
-  },
-  {
-    n: "06",
-    title: "SkillKit (multi-agent)",
-    body: "Install the same skills across Claude Code, Cursor, Codex, and Copilot in one shot. Use this if you switch between agents.",
-    command: "npx skillkit install guyaga/marketing-skills",
-  },
+  { n: "01", title: "npx skills add (recommended)", body: "The fastest path. Drops every skill into .agents/skills/ and symlinks them to .claude/skills/ so Claude Code picks them up immediately.", command: "npx skills add guyaga/marketing-skills" },
+  { n: "02", title: "Claude Code plugin", body: "Install as a Claude Code plugin from inside the editor. Use this if you prefer Claude Code's native plugin manager.", command: "/plugin add github:guyaga/marketing-skills" },
+  { n: "03", title: "Clone and copy", body: "Pull the repo and copy the skills folder into your project. Use this when you want full control or no installer in the loop.", command: "git clone https://github.com/guyaga/marketing-skills.git && cp -r marketing-skills/skills .agents/" },
+  { n: "04", title: "Git submodule", body: "Add the repo as a submodule so you can pull updates with a single git command. Best for teams that want a tracked, pinned version.", command: "git submodule add https://github.com/guyaga/marketing-skills.git .agents/marketing-skills" },
+  { n: "05", title: "Fork and customize", body: "Fork the repo on GitHub, edit the skills to fit your product and voice, then install your fork the same way you would install this one.", command: "npx skills add YOUR-USERNAME/marketing-skills" },
+  { n: "06", title: "SkillKit (multi-agent)", body: "Install the same skills across Claude Code, Cursor, Codex, and Copilot in one shot. Use this if you switch between agents.", command: "npx skillkit install guyaga/marketing-skills" },
 ];
 ---
 
-<BrandLayout title="Install" description="Six ways to install Guy Aga's 40 marketing skills into Claude Code, Cursor, Codex, and Copilot.">
-  <section class="bg-[var(--color-brand-paper)]">
-    <header class="border-b border-[var(--color-brand-rule)]">
-      <div class="max-w-5xl mx-auto px-6 pt-16 pb-10">
-        <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-3">
+<BrandLayout title="Install" description="Six ways to install Guy Aga's 48 marketing skills into Claude Code, Cursor, Codex, and Copilot.">
+  <section class="bg-[var(--color-bg-base)]">
+    <header class="border-b border-[var(--color-rule)] bg-[var(--color-bg-deeper)]">
+      <div class="max-w-5xl mx-auto px-6 md:px-10 pt-20 pb-14">
+        <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-3">
           Install · Six methods
         </div>
-        <h1 class="font-display text-5xl md:text-6xl tracking-tight leading-[1.05] mb-6">
+        <h1 class="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05] mb-6 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">
           Pick your install path.
         </h1>
-        <p class="text-lg text-[var(--color-brand-black)]/75 max-w-2xl">
+        <p class="text-lg text-[var(--color-ink-secondary)] max-w-2xl leading-relaxed">
           The first one is what most people want. The others exist for teams who need a pinned version, a fork, or multi-agent setup.
         </p>
       </div>
     </header>
 
-    <div class="max-w-5xl mx-auto px-6 py-12 space-y-12">
-      {methods.map((m) => (
-        <div class="grid md:grid-cols-12 gap-6 pb-10 border-b border-[var(--color-brand-rule)] last:border-b-0">
-          <div class="md:col-span-2">
-            <div class="font-mono text-3xl text-[var(--color-brand-red)]">{m.n}</div>
+    <div class="max-w-5xl mx-auto px-6 md:px-10 py-16 space-y-14">
+      {methods.map((m, i) => (
+        <div class="grid md:grid-cols-12 gap-8 pb-12 border-b border-[var(--color-rule)] last:border-b-0">
+          <div class="md:col-span-2 relative">
+            <div class={`font-display text-5xl md:text-6xl ${i === 0 ? "text-[var(--color-brand-red)]" : "text-[var(--color-ink-tertiary)]"}`} style="font-variation-settings: 'SOFT' 50, 'WONK' 1;">{m.n}</div>
           </div>
           <div class="md:col-span-10">
-            <h2 class="font-display text-2xl mb-3">{m.title}</h2>
-            <p class="text-[var(--color-brand-black)]/80 leading-relaxed mb-5 max-w-2xl">{m.body}</p>
-            <InstallSnippet command={m.command} />
+            <h2 class="font-display text-2xl md:text-3xl mb-4 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50; letter-spacing: -0.015em;">{m.title}</h2>
+            <p class="text-[var(--color-ink-secondary)] leading-relaxed mb-6 max-w-2xl">{m.body}</p>
+            <InstallSnippet command={m.command} variant={i === 0 ? "primary" : "muted"} />
           </div>
         </div>
       ))}
     </div>
 
-    <div class="bg-[var(--color-brand-beige)]">
-      <div class="max-w-5xl mx-auto px-6 py-16 text-center">
-        <h2 class="font-display text-3xl mb-4">After install, run this first.</h2>
-        <p class="text-[var(--color-brand-black)]/75 mb-6 max-w-xl mx-auto">
-          Every other skill reads <code class="font-mono text-sm bg-[var(--color-brand-paper)] px-2 py-1">product-marketing-context</code> before it does anything. Set it up once and the agent works in your voice every time.
+    <div class="bg-[var(--color-bg-deeper)] border-y border-[var(--color-rule)]">
+      <div class="max-w-5xl mx-auto px-6 md:px-10 py-20 text-center">
+        <h2 class="font-display text-3xl md:text-4xl mb-5 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">After install, run this first.</h2>
+        <p class="text-[var(--color-ink-secondary)] mb-7 max-w-xl mx-auto leading-relaxed">
+          Every other skill reads <code class="font-mono text-sm text-[var(--color-brand-warm)] bg-[var(--color-bg-elev-1)] border border-[var(--color-rule)] px-2 py-0.5">product-marketing-context</code> before it does anything. Set it up once and the agent works in your voice every time.
         </p>
-        <a href="/skills/product-marketing-context/" class="font-mono text-xs tracking-[0.2em] uppercase border border-[var(--color-brand-black)] px-4 py-2 inline-block hover:bg-[var(--color-brand-black)] hover:text-[var(--color-brand-paper)] transition-colors">
+        <a href="/skills/product-marketing-context/" class="font-mono text-xs tracking-[0.22em] uppercase border border-[var(--color-rule-strong)] text-[var(--color-ink-primary)] px-4 py-2 inline-block hover:bg-[var(--color-ink-primary)] hover:text-[var(--color-bg-base)] hover:border-[var(--color-ink-primary)] transition-all duration-200 active:scale-[0.97]">
           Open product-marketing-context →
         </a>
       </div>

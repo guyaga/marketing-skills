@@ -6,49 +6,36 @@ import { skillsMeta } from "../../data/skills-meta";
 ---
 
 <BrandLayout title="All skills">
-  <section class="bg-[var(--color-brand-paper)]">
-    <div class="max-w-6xl mx-auto px-6 pt-16 pb-12">
-      <div class="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--color-brand-red)] mb-3">
+  <section class="bg-[var(--color-bg-base)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 pt-20 pb-12">
+      <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] mb-3">
         {skillsMeta.length} skills · 10 categories
       </div>
-      <h1 class="font-display text-5xl md:text-6xl tracking-tight leading-[1.05] mb-6">
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05] mb-6 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">
         All marketing skills.
       </h1>
-      <p class="text-lg text-[var(--color-brand-black)]/75 max-w-2xl">
+      <p class="text-lg text-[var(--color-ink-secondary)] max-w-2xl">
         Filter by category or search by name. Click any skill to see the full prompt and how the agent runs it.
       </p>
     </div>
 
-    <div class="max-w-6xl mx-auto px-6 pb-6 sticky top-0 bg-[var(--color-brand-paper)] z-10 border-b border-[var(--color-brand-rule)]">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 pb-6 sticky top-16 bg-[var(--color-bg-base)]/95 backdrop-blur-xl z-30 border-b border-[var(--color-rule)]">
       <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between py-4">
         <div class="flex flex-wrap gap-2" id="category-filter">
-          <button
-            type="button"
-            data-cat="all"
-            class="cat-btn font-mono text-[10px] tracking-[0.2em] uppercase border border-[var(--color-brand-black)] bg-[var(--color-brand-black)] text-[var(--color-brand-paper)] px-3 py-1.5 transition-colors"
-          >All</button>
+          <button type="button" data-cat="all" class="cat-btn font-mono text-[10px] tracking-[0.22em] uppercase border border-[var(--color-rule-strong)] bg-[var(--color-bg-deeper)] text-[var(--color-ink-primary)] px-3 py-1.5 transition-colors">All</button>
           {categories.map((c) => (
-            <button
-              type="button"
-              data-cat={c.slug}
-              class="cat-btn font-mono text-[10px] tracking-[0.2em] uppercase border border-[var(--color-brand-rule)] hover:border-[var(--color-brand-black)] px-3 py-1.5 transition-colors"
-            >{c.name}</button>
+            <button type="button" data-cat={c.slug} class="cat-btn font-mono text-[10px] tracking-[0.22em] uppercase border border-[var(--color-rule)] text-[var(--color-ink-secondary)] hover:border-[var(--color-rule-strong)] hover:text-[var(--color-ink-primary)] px-3 py-1.5 transition-colors">{c.name}</button>
           ))}
         </div>
-        <input
-          id="skill-search"
-          type="search"
-          placeholder="Search skills…"
-          class="font-mono text-sm border border-[var(--color-brand-rule)] focus:border-[var(--color-brand-black)] bg-[var(--color-brand-paper)] px-3 py-2 outline-none w-full md:w-64"
-        />
+        <input id="skill-search" type="search" placeholder="Search skills…" class="font-mono text-sm border border-[var(--color-rule)] focus:border-[var(--color-rule-strong)] bg-[var(--color-bg-base)] text-[var(--color-ink-primary)] placeholder:text-[var(--color-ink-tertiary)] px-3 py-2 outline-none w-full md:w-64" />
       </div>
     </div>
 
-    <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-12">
       <div id="skills-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {skillsMeta.map((s) => <SkillCard skill={s} />)}
       </div>
-      <div id="empty-state" class="hidden py-20 text-center text-[var(--color-brand-muted)] font-mono text-sm">
+      <div id="empty-state" class="hidden py-20 text-center text-[var(--color-ink-tertiary)] font-mono text-sm">
         No skills match.
       </div>
     </div>
@@ -82,10 +69,10 @@ import { skillsMeta } from "../../data/skills-meta";
       activeCat = btn.dataset.cat ?? "all";
       filterBtns.forEach((b) => {
         const active = b.dataset.cat === activeCat;
-        b.classList.toggle("bg-[var(--color-brand-black)]", active);
-        b.classList.toggle("text-[var(--color-brand-paper)]", active);
-        b.classList.toggle("border-[var(--color-brand-black)]", active);
-        b.classList.toggle("border-[var(--color-brand-rule)]", !active);
+        b.classList.toggle("bg-[var(--color-bg-deeper)]", active);
+        b.classList.toggle("text-[var(--color-ink-primary)]", active);
+        b.classList.toggle("border-[var(--color-rule-strong)]", active);
+        b.classList.toggle("border-[var(--color-rule)]", !active);
       });
       apply();
     });

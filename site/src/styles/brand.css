@@ -1,76 +1,334 @@
 @import "tailwindcss";
 
-@theme {
-  --color-brand-black: #111111;
-  --color-brand-grid: #1d1d1d;
-  --color-brand-red: #e63b2e;
-  --color-brand-beige: #e8e4dd;
-  --color-brand-paper: #f5f3ee;
-  --color-brand-muted: #c0bcb5;
-  --color-brand-rule: #d8d4cc;
+/* ────────────────────────────────────────────────────────────────────
+   GUYAGA MARKETING SKILLS — DARK THEME v2
+   Editorial-dark. Warm off-black, brand-red one-fold discipline,
+   editorial display serif (Fraunces) + clean sans (Hanken Grotesk) +
+   distinctive mono (JetBrains Mono).
+   ──────────────────────────────────────────────────────────────────── */
 
-  --font-display: Georgia, "Times New Roman", "DejaVu Serif", serif;
-  --font-body: Calibri, "Helvetica Neue", "Segoe UI", "DejaVu Sans", system-ui, sans-serif;
-  --font-mono: Consolas, Menlo, "DejaVu Sans Mono", monospace;
+@theme {
+  /* SURFACE — warm off-black, never #000 */
+  --color-bg-base: #0e0e10;
+  --color-bg-deeper: #0a0a0b;
+  --color-bg-elev-1: #16161a;
+  --color-bg-elev-2: #1f1f24;
+  --color-rule: #2a2a30;
+  --color-rule-strong: #3a3a42;
+
+  /* INK — warm off-white, never pure #fff */
+  --color-ink-primary: #f2efe8;
+  --color-ink-secondary: #b8b4ab;
+  --color-ink-tertiary: #6e6a62;
+  --color-ink-muted: #44423e;
+
+  /* ACCENTS — disciplined */
+  --color-brand-red: #e63b2e;
+  --color-brand-red-dim: #c2382e;
+  --color-brand-warm: #e8e4dd;
+
+  /* LEGACY ALIASES — keep old token names mapping to dark equivalents
+     so we don't have to touch every component in one pass */
+  --color-brand-black: #f2efe8;
+  --color-brand-grid: #1f1f24;
+  --color-brand-beige: #16161a;
+  --color-brand-paper: #0e0e10;
+  --color-brand-muted: #6e6a62;
+  --color-brand-rule: #2a2a30;
+
+  /* FONTS — Fraunces editorial serif, Hanken Grotesk body, JetBrains Mono */
+  --font-display:
+    "Fraunces", "Editorial New", "GT Sectra", "Times New Roman",
+    "DejaVu Serif", serif;
+  --font-body:
+    "Hanken Grotesk", "Söhne", "GT America", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+  --font-mono:
+    "JetBrains Mono", "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
 }
 
 @layer base {
   html {
-    background: var(--color-brand-paper);
-    color: var(--color-brand-black);
+    background: var(--color-bg-base);
+    color: var(--color-ink-primary);
     font-family: var(--font-body);
+    font-feature-settings: "ss01", "ss02";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    color-scheme: dark;
   }
 
   body {
     font-family: var(--font-body);
+    background: var(--color-bg-base);
+    color: var(--color-ink-primary);
   }
 
   ::selection {
     background: var(--color-brand-red);
-    color: var(--color-brand-paper);
+    color: var(--color-ink-primary);
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    font-feature-settings: "ss01";
+    letter-spacing: -0.02em;
+    color: var(--color-ink-primary);
   }
 
-  /* Prose styling for SKILL.md bodies */
-  .prose-skill h1 { font-size: 2.25rem; line-height: 1.1; margin-top: 2rem; margin-bottom: 1rem; }
-  .prose-skill h2 { font-size: 1.5rem; line-height: 1.2; margin-top: 2.5rem; margin-bottom: 0.75rem; padding-top: 1.25rem; border-top: 1px solid var(--color-brand-rule); }
-  .prose-skill h3 { font-size: 1.125rem; line-height: 1.3; margin-top: 1.75rem; margin-bottom: 0.5rem; font-family: var(--font-body); font-weight: 700; }
-  .prose-skill p, .prose-skill ul, .prose-skill ol, .prose-skill blockquote, .prose-skill pre, .prose-skill table { margin-bottom: 1rem; }
-  .prose-skill p, .prose-skill li { line-height: 1.65; font-size: 1.0625rem; }
-  .prose-skill ul { padding-left: 1.25rem; list-style: disc; }
-  .prose-skill ol { padding-left: 1.25rem; list-style: decimal; }
-  .prose-skill li { margin-bottom: 0.35rem; }
-  .prose-skill code { font-family: var(--font-mono); font-size: 0.92em; background: var(--color-brand-beige); padding: 0.1em 0.35em; border-radius: 2px; }
-  .prose-skill pre { background: var(--color-brand-black); color: var(--color-brand-paper); padding: 1rem 1.25rem; border-radius: 0; overflow-x: auto; font-size: 0.9rem; }
-  .prose-skill pre code { background: transparent; color: inherit; padding: 0; }
-  .prose-skill a { color: var(--color-brand-red); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  .prose-skill blockquote { border-left: 3px solid var(--color-brand-red); padding-left: 1rem; color: #444; font-style: italic; }
-  .prose-skill table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-  .prose-skill th, .prose-skill td { border: 1px solid var(--color-brand-rule); padding: 0.5rem 0.75rem; text-align: left; }
-  .prose-skill th { background: var(--color-brand-beige); font-weight: 700; }
-  .prose-skill hr { border: 0; border-top: 1px solid var(--color-brand-rule); margin: 2rem 0; }
+  /* Utility: editorial drop cap */
+  .drop-cap::first-letter {
+    font-family: var(--font-display);
+    font-weight: 360;
+    font-size: 3.5em;
+    line-height: 0.85;
+    float: left;
+    margin: 0.1em 0.12em 0 -0.04em;
+    color: var(--color-ink-secondary);
+    font-variation-settings: "SOFT" 50, "WONK" 1;
+  }
+
+  /* Editorial prose for SKILL.md bodies — DARK */
+  .prose-skill h1 {
+    font-size: 2.25rem;
+    line-height: 1.05;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 380;
+    letter-spacing: -0.025em;
+    font-variation-settings: "SOFT" 50, "WONK" 1;
+  }
+  .prose-skill h2 {
+    font-size: 1.625rem;
+    line-height: 1.15;
+    margin-top: 2.75rem;
+    margin-bottom: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-rule);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+  .prose-skill h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.5rem;
+    width: 4px;
+    height: calc(100% - 1.5rem);
+    background: var(--color-brand-red);
+    transform: translateX(-1.25rem);
+  }
+  .prose-skill h3 {
+    font-size: 1.125rem;
+    line-height: 1.3;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--color-ink-primary);
+    letter-spacing: -0.01em;
+  }
+  .prose-skill p,
+  .prose-skill ul,
+  .prose-skill ol,
+  .prose-skill blockquote,
+  .prose-skill pre,
+  .prose-skill table {
+    margin-bottom: 1rem;
+  }
+  .prose-skill p,
+  .prose-skill li {
+    line-height: 1.65;
+    font-size: 1.0625rem;
+    color: var(--color-ink-primary);
+  }
+  .prose-skill p:first-of-type {
+    /* Optional drop cap on first paragraph */
+  }
+  .prose-skill ul {
+    padding-left: 1.25rem;
+    list-style: none;
+  }
+  .prose-skill ul li {
+    position: relative;
+    padding-left: 1rem;
+  }
+  .prose-skill ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 6px;
+    height: 1px;
+    background: var(--color-brand-red);
+  }
+  .prose-skill ol {
+    padding-left: 1.5rem;
+    list-style: decimal;
+  }
+  .prose-skill ol::marker,
+  .prose-skill ol li::marker {
+    color: var(--color-brand-red);
+  }
+  .prose-skill li {
+    margin-bottom: 0.4rem;
+  }
+  .prose-skill code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--color-bg-elev-1);
+    padding: 0.12em 0.4em;
+    border: 1px solid var(--color-rule);
+    border-radius: 0;
+    color: var(--color-brand-warm);
+  }
+  .prose-skill pre {
+    background: var(--color-bg-deeper);
+    color: var(--color-ink-primary);
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--color-rule);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    border-radius: 0;
+    overflow-x: auto;
+    font-size: 0.9rem;
+  }
+  .prose-skill pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: 0;
+  }
+  .prose-skill a {
+    color: var(--color-brand-red);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 180ms ease-out;
+  }
+  .prose-skill a:hover {
+    color: var(--color-ink-primary);
+  }
+  .prose-skill blockquote {
+    border-left: 4px solid var(--color-brand-red);
+    padding-left: 1.25rem;
+    color: var(--color-ink-secondary);
+    font-style: italic;
+    font-family: var(--font-display);
+    font-size: 1.1875rem;
+    line-height: 1.5;
+  }
+  .prose-skill table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .prose-skill thead {
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .prose-skill tbody tr {
+    border-top: 1px solid var(--color-rule);
+  }
+  .prose-skill th,
+  .prose-skill td {
+    padding: 0.7rem 0.9rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose-skill th {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-ink-secondary);
+    font-weight: 500;
+  }
+  .prose-skill td {
+    color: var(--color-ink-primary);
+  }
+  .prose-skill td .font-mono {
+    color: var(--color-brand-warm);
+  }
+  .prose-skill hr {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+    margin: 2.75rem 0;
+  }
+  .prose-skill strong {
+    color: var(--color-ink-primary);
+    font-weight: 600;
+  }
 }
 
+/* ────────────────────────────────────────────────────────────────────
+   UTILITIES
+   ──────────────────────────────────────────────────────────────────── */
+
 @utility bg-grid-dark {
-  background-color: var(--color-brand-black);
+  background-color: var(--color-bg-base);
   background-image:
-    linear-gradient(to right, var(--color-brand-grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-brand-grid) 1px, transparent 1px);
+    linear-gradient(to right, var(--color-bg-elev-1) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-bg-elev-1) 1px, transparent 1px);
   background-size: 64px 64px;
   background-position: -1px -1px;
 }
 
 @utility bg-grid-light {
-  background-color: var(--color-brand-paper);
+  /* Was the light-mode grid; remap to deeper surface tier in dark */
+  background-color: var(--color-bg-deeper);
+}
+
+@utility bg-grid-deeper {
+  background-color: var(--color-bg-deeper);
   background-image:
-    linear-gradient(to right, var(--color-brand-rule) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-brand-rule) 1px, transparent 1px);
-  background-size: 64px 64px;
+    linear-gradient(to right, var(--color-rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-rule) 1px, transparent 1px);
+  background-size: 96px 96px;
   background-position: -1px -1px;
+}
+
+/* Inner-edge highlight — liquid-glass refraction per taste-skill §4 */
+@utility liquid-edge {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Red-tinted lift shadow for hero / persona cards */
+@utility shadow-red-lift {
+  box-shadow: 0 12px 32px -16px rgba(230, 59, 46, 0.18);
+}
+
+/* ────────────────────────────────────────────────────────────────────
+   MOTION — global keyframes used by perpetual micro-interactions
+   ──────────────────────────────────────────────────────────────────── */
+
+@keyframes breathe {
+  0%, 100% { filter: saturate(1) brightness(1); }
+  50% { filter: saturate(0.92) brightness(0.96); }
+}
+
+@keyframes marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes underline-in {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translate3d(0, 8px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
