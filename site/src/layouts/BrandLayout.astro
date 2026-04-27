@@ -127,10 +127,14 @@ const ogImageUrl = ogImage
     <BrandFooter />
 
     <script is:inline>
-      // Scroll-triggered stagger reveal — IntersectionObserver based.
-      // Above-the-fold elements reveal synchronously (still staggered) so
-      // there's no blink of empty content on initial paint.
+      // Progressive-enhancement scroll reveal. Default visible. JS hides
+      // below-the-fold elements (.is-prerevealed) and animates them in
+      // (.is-revealed) when they enter viewport. Above-the-fold stays visible
+      // — no blink, no hidden hero. prefers-reduced-motion skips entirely.
       (function () {
+        if (!("IntersectionObserver" in window)) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
         const reveals = document.querySelectorAll("[data-reveal]");
         if (!reveals.length) return;
 
@@ -144,41 +148,32 @@ const ogImageUrl = ogImage
           }
         });
 
-        // Reduced-motion: reveal everything immediately
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          reveals.forEach((el) => el.classList.add("is-revealed"));
-          return;
-        }
-
-        // No IO support: just reveal everything
-        if (!("IntersectionObserver" in window)) {
-          reveals.forEach((el) => el.classList.add("is-revealed"));
-          return;
-        }
-
         const io = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
               if (entry.isIntersecting) {
-                entry.target.classList.add("is-revealed");
-                io.unobserve(entry.target);
+                const t = entry.target;
+                t.classList.remove("is-prerevealed");
+                t.classList.add("is-revealed");
+                io.unobserve(t);
               }
             }
           },
           { threshold: 0.05, rootMargin: "0px 0px -8% 0px" }
         );
 
-        // Reveal already-visible elements synchronously (still respects stagger
-        // via CSS transition-delay), observe the rest.
         const vh = window.innerHeight || document.documentElement.clientHeight;
         reveals.forEach((el) => {
           const rect = el.getBoundingClientRect();
-          if (rect.top < vh && rect.bottom > 0) {
-            // Use rAF so the initial styles paint, then the transition kicks in
-            requestAnimationFrame(() => el.classList.add("is-revealed"));
-          } else {
-            io.observe(el);
+          if (rect.bottom < vh * 1.05) {
+            // Already in or near viewport: do nothing (stays visible).
+            // Optional: you could still animate in by adding pre + revealed,
+            // but that risks re-flash. Skipping is cleaner.
+            return;
           }
+          // Below the fold: hide first, observe.
+          el.classList.add("is-prerevealed");
+          io.observe(el);
         });
       })();
     </script>

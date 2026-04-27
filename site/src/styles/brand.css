@@ -335,19 +335,26 @@
   font-variation-settings: "SOFT" 50, "WONK" 1;
 }
 
-/* Scroll-triggered stagger reveal */
+/* Scroll-triggered stagger reveal — progressive enhancement.
+   Default: visible. JS adds .is-prerevealed for below-the-fold elements,
+   then swaps to .is-revealed when they enter viewport. No-JS users see
+   everything immediately. */
 [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal].is-prerevealed {
   opacity: 0;
   transform: translate3d(0, 12px, 0);
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
   transition:
     opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
     transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
-}
-[data-reveal].is-revealed {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
 }
 
 /* Kinetic marquee strip */
