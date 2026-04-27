@@ -45,24 +45,46 @@ const heroOwns = skillsByCategory(heroPersona.category);
         </div>
       </div>
 
-      <!-- Right column: hero persona with breathing animation + floating mono labels -->
+      <!-- Right column: cinematic hero portrait video + floating mono labels -->
       <div class="lg:col-span-5 relative flex justify-center lg:justify-end" data-reveal>
-        <div class="relative">
-          <PersonaAvatar persona={heroPersona} size="hero" link={false} breathe={true} eager={true} />
-          <!-- floating mono labels around the avatar -->
-          <div class="absolute -top-3 -left-2 md:-left-6 hidden md:block">
+        <div class="relative w-full max-w-[480px] aspect-[3/2] overflow-hidden border border-[var(--color-rule-strong)] bg-[var(--color-bg-elev-2)]">
+          <video
+            class="team-hero-video absolute inset-0 w-full h-full object-cover"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            poster={`/avatars/heroes/${heroPersona.avatarSlug}-1024.webp`}
+            src={`/avatars/heroes/${heroPersona.avatarSlug}-motion.mp4`}
+            aria-hidden="true"
+          ></video>
+          <picture class="team-hero-static absolute inset-0">
+            <source type="image/webp" srcset={`/avatars/heroes/${heroPersona.avatarSlug}-1024.webp`} />
+            <img src={`/avatars/heroes/${heroPersona.avatarSlug}-wide.png`} alt={`${heroPersona.name}, ${heroPersona.role}`} loading="eager" decoding="sync" fetchpriority="high" width="1024" height="683" class="absolute inset-0 w-full h-full object-cover" />
+          </picture>
+          <!-- floating mono labels around the video -->
+          <div class="absolute top-3 left-3 md:top-4 md:left-4">
             <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-brand-red)] bg-[var(--color-bg-deeper)]/80 backdrop-blur px-2 py-1 border border-[var(--color-rule)]">
               01 · {heroPersona.role}
             </div>
           </div>
-          <div class="absolute -bottom-4 -right-2 md:-right-8 max-w-[260px]">
+          <div class="absolute bottom-3 right-3 max-w-[280px] text-right">
             <div class="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--color-ink-tertiary)] mb-1">Owns</div>
-            <div class="font-mono text-xs text-[var(--color-ink-primary)] leading-snug">
+            <div class="font-mono text-xs text-[var(--color-ink-primary)] leading-snug bg-[var(--color-bg-deeper)]/80 backdrop-blur px-2 py-1 border border-[var(--color-rule)] inline-block">
               {heroOwns.map((s) => s.name).join(" · ")}
             </div>
           </div>
         </div>
       </div>
+
+      <style>
+        .team-hero-static { display: none; }
+        @media (prefers-reduced-motion: reduce) {
+          .team-hero-video { display: none !important; }
+          .team-hero-static { display: block !important; }
+        }
+      </style>
     </div>
   </section>
 
