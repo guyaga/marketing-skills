@@ -191,17 +191,44 @@ const supportingPersonas = personas.slice(1);
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="bg-[var(--color-bg-base)]">
-    <div class="max-w-3xl mx-auto px-6 md:px-10 py-24 text-center" data-reveal>
-      <h2 class="font-display text-4xl md:text-5xl mb-6 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">Ready when you are.</h2>
-      <p class="text-lg text-[var(--color-ink-secondary)] mb-8">
-        {totalSkills} skills, MIT licensed, install in under a minute.
+  <!-- CTA — full-bleed team-together video background with dark overlay -->
+  <section class="relative overflow-hidden bg-[var(--color-bg-base)]">
+    <!-- Background video (autoplays muted, loops) -->
+    <video
+      class="cta-bg-video absolute inset-0 w-full h-full object-cover"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="metadata"
+      aria-hidden="true"
+      poster="/og-default.png"
+    >
+      <source src="/team-ensemble.mp4" type="video/mp4" />
+    </video>
+    <!-- Black opacity overlay -->
+    <div class="absolute inset-0 bg-black/65 pointer-events-none"></div>
+    <!-- Subtle grid texture on top, ties to brand -->
+    <div class="absolute inset-0 bg-grid-dark opacity-25 pointer-events-none"></div>
+
+    <div class="relative max-w-3xl mx-auto px-6 md:px-10 py-32 md:py-40 text-center" data-reveal>
+      <div class="font-mono text-[10px] tracking-[0.3em] uppercase text-[var(--color-brand-red)] mb-5">
+        The team is briefed
+      </div>
+      <h2 class="font-display text-4xl md:text-6xl mb-6 text-[var(--color-ink-primary)]" style="font-variation-settings: 'SOFT' 50, 'WONK' 1; letter-spacing: -0.025em;">Ready when you are.</h2>
+      <p class="text-lg text-[var(--color-ink-secondary)] mb-10">
+        {totalSkills} skills. MIT licensed. Install in under a minute.
       </p>
       <div class="max-w-xl mx-auto">
         <InstallSnippet command="npx skills add guyaga/brief" />
       </div>
     </div>
+
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        .cta-bg-video { display: none; }
+      }
+    </style>
   </section>
 </BrandLayout>
 
